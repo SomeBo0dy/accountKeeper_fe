@@ -5,7 +5,14 @@
       <map>
         <entry key="..\:/Code/Android/accountKeeper/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1205" />
         <entry key="..\:/Code/Android/accountKeeper/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1205" />
-        <entry key="..\:/Code/Android/accountKeeper/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Code/Android/accountKeeper/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.1" />
+        <entry key="..\:/Code/Android/accountKeeper/app/src/main/res/layout-w936dp/activity_login.xml" value="0.1" />
+        <entry key="..\:/Code/Android/accountKeeper/app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="..\:/Code/Android/accountKeeper/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Code/Android/accountKeeper/app/src/main/res/layout/fragment_login.xml" value="0.12" />
+        <entry key="..\:/Code/Android/accountKeeper/app/src/main/res/layout/fragment_register.xml" value="0.12" />
+        <entry key="..\:/Code/Android/accountKeeper/app/src/main/res/layout/fragram_login.xml" value="0.11322188449848024" />
+        <entry key="..\:/Code/Android/accountKeeper/app/src/main/res/layout/fragram_register.xml" value="0.11322188449848024" />
       </map>
     </option>
   </component>
@@ -14,5 +21,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.144" />
+      </ProjectState>
+    </option>
   </component>
 </project>

@@ -1,45 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context=".MainActivity">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ssss"/>
+<!--    <LinearLayout-->
+<!--        android:id="@+id/mainActivity"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:background="@drawable/background"-->
+<!--        android:orientation="vertical">-->
+<!--        <LinearLayout-->
+<!--            android:id="@+id/main_header"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical">-->
 
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Hello World!"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
+<!--            <ImageView-->
+<!--                android:id="@+id/logo"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="113dp"-->
+<!--                android:layout_marginTop="110dp"-->
+<!--                android:layout_marginBottom="20dp"-->
+<!--                android:src="@drawable/jzlogo" />-->
+<!--        </LinearLayout>-->
 
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/jzlogo"
-        app:layout_constraintTop_toTopOf="parent"/>
-    <EditText
-        android:id="@+id/accountEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="账号"
-        android:inputType="text"
-        app:layout_constraintTop_toBottomOf="@id/logo" />
-    <EditText
-        android:id="@+id/passwordEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="密码"
-        android:inputType="textPassword"
-        app:layout_constraintTop_toBottomOf="@+id/accountEditText"/>
-
-    <Button
-        android:id="@+id/loginButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="登录"
-        app:layout_constraintTop_toBottomOf="@+id/passwordEditText"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+<!--        <LinearLayout-->
+<!--            android:id="@+id/main_content"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:orientation="vertical">-->
+<!--&lt;!&ndash;            <fragment&ndash;&gt;-->
+<!--&lt;!&ndash;                android:id="@+id/loginFragment"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:name="xyj.pers.accountkeeper.LoginFragment"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_height="match_parent" />&ndash;&gt;-->
+<!--        </LinearLayout>-->
+<!--    </LinearLayout>-->
+</layout>

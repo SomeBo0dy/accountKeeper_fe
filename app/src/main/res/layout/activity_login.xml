@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".LoginActivity">
+
+    <LinearLayout
+        android:id="@+id/login_activity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/loginHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="match_parent"
+                android:layout_height="113dp"
+                android:layout_marginBottom="20dp"
+                android:src="@drawable/jzlogo" />
+        </LinearLayout>
+
+        <!--        <LinearLayout-->
+        <!--            android:id="@+id/login_content"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:orientation="vertical">-->
+        <!--            <fragment-->
+        <!--                android:id="@+id/loginFragment"-->
+        <!--                android:name="xyj.pers.accountkeeper.LoginFragment"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="match_parent" />-->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fragment_container" />
+        <!--        </LinearLayout>-->
+    </LinearLayout>
+</layout>
