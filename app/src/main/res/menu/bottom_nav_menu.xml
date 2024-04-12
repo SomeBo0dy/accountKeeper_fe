@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bookFragment"
+        android:icon="@drawable/book_icon"
+        android:title="账本列表"/>
+    <item
+        android:id="@+id/userFragment"
+        android:icon="@drawable/user_icon"
+        android:title="个人中心"/>
+</menu>

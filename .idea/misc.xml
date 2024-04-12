@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
@@ -7,16 +6,25 @@
         <entry key="..\:/Code/Android/accountKeeper/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1205" />
         <entry key="..\:/Code/Android/accountKeeper/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.1" />
         <entry key="..\:/Code/Android/accountKeeper/app/src/main/res/layout-w936dp/activity_login.xml" value="0.1" />
-        <entry key="..\:/Code/Android/accountKeeper/app/src/main/res/layout/activity_login.xml" value="0.1" />
-        <entry key="..\:/Code/Android/accountKeeper/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/Code/Android/accountKeeper/app/src/main/res/layout/fragment_login.xml" value="0.12" />
-        <entry key="..\:/Code/Android/accountKeeper/app/src/main/res/layout/fragment_register.xml" value="0.12" />
+        <entry key="..\:/Code/Android/accountKeeper/app/src/main/res/layout-w936dp/fragment_main_navigation.xml" value="0.187109375" />
+        <entry key="..\:/Code/Android/accountKeeper/app/src/main/res/layout/activity_login.xml" value="0.2" />
+        <entry key="..\:/Code/Android/accountKeeper/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Code/Android/accountKeeper/app/src/main/res/layout/book_item.xml" value="0.2" />
+        <entry key="..\:/Code/Android/accountKeeper/app/src/main/res/layout/fragment_bill.xml" value="0.264" />
+        <entry key="..\:/Code/Android/accountKeeper/app/src/main/res/layout/fragment_book.xml" value="0.264" />
+        <entry key="..\:/Code/Android/accountKeeper/app/src/main/res/layout/fragment_login.xml" value="0.1" />
+        <entry key="..\:/Code/Android/accountKeeper/app/src/main/res/layout/fragment_register.xml" value="0.1" />
+        <entry key="..\:/Code/Android/accountKeeper/app/src/main/res/layout/fragment_user.xml" value="0.264" />
         <entry key="..\:/Code/Android/accountKeeper/app/src/main/res/layout/fragram_login.xml" value="0.11322188449848024" />
         <entry key="..\:/Code/Android/accountKeeper/app/src/main/res/layout/fragram_register.xml" value="0.11322188449848024" />
+        <entry key="..\:/Code/Android/accountKeeper/app/src/main/res/layout/item_book.xml" value="0.12092391304347826" />
+        <entry key="..\:/Code/Android/accountKeeper/app/src/main/res/menu/bottom_nav.xml" value="0.2484375" />
+        <entry key="..\:/Code/Android/accountKeeper/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1795" />
+        <entry key="..\:/Code/Android/accountKeeper/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1795" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
