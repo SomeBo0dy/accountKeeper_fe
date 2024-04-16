@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 
 /**
  * @author  :Setruth
@@ -49,7 +50,7 @@ class SPUtil(context: Context) {
                 edit.putString(key, any)
             }
 
-            is Number ->{
+            is Number -> {
                 edit.putString(key, any.toString())
             }
 
@@ -60,8 +61,17 @@ class SPUtil(context: Context) {
         edit.commit()
     }
 
-    inline fun <reified T> getObjectItem(key: String, type: T):T ?{
-        return Gson().fromJson(this.getItem(key,"") as String, T::class.java)
+    inline fun <reified T> toBeanList(list: List<Any>, books: ArrayList<T>) {
+        for (item in list) {
+            var gson: Gson = GsonBuilder().setDateFormat("yyyy-MM-dd").create()
+            val toJson = gson.toJson(item)
+            val entity: T = gson.fromJson(toJson, T::class.java)
+            books.add(entity)
+        }
+    }
+
+    inline fun <reified T> getObjectItem(key: String, type: T): T? {
+        return Gson().fromJson(this.getItem(key, "") as String, T::class.java)
     }
 
     /**
@@ -107,5 +117,9 @@ class SPUtil(context: Context) {
         const val PASSWORD_KEY = "pwd"
         const val NICKNAME_KEY = "nickname"
         const val ACCOUNT_KEY = "account"
+    }
+
+    fun removeItem(key: String) {
+        sharedPreferences.edit().remove(key).apply()
     }
 }

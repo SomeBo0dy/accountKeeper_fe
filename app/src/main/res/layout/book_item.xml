@@ -1,24 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.app.MainActivity"
-    >
-
+    xmlns:tools="http://schemas.android.com/tools">
+    <!--    <data>-->
+    <!--        <variable-->
+    <!--            name="item"-->
+    <!--            type="pers.xyj.accountkeeper.repository.entity.Book"/>-->
+    <!--    </data>-->
     <LinearLayout
         android:id="@+id/book_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:elevation="5dp"
-        >
-        <TextView
-            android:id="@+id/create_time"
+        android:paddingBottom="10dp"
+        android:elevation="5dp">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical|right"
-            android:paddingRight="10dp"
-            android:text="2024-03-12 16:44:41 创建" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/create_time"
+                android:layout_width="97dp"
+                android:layout_height="match_parent"
+                android:layout_weight="15"
+                android:gravity="center_vertical|right"
+                android:paddingRight="5dp"
+                android:paddingBottom="5dp"
+                android:text="11111"/>
+
+            <TextView
+                android:id="@+id/time_label"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical|left"
+                android:text="创建"
+                android:paddingBottom="5dp"
+                android:textSize="15sp" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/book_container"
@@ -28,37 +49,67 @@
             android:elevation="10dp"
             android:orientation="vertical">
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="1dp"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/book_type"
+                    android:id="@+id/member_count"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="单人" />
+                    android:textSize="14sp"
+                    android:gravity="center_vertical|right"
+                    android:text="-1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|left"
+                    android:textSize="14sp"
+                    android:text="人" />
 
                 <TextView
                     android:id="@+id/book_name"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="10"
-                    android:text="默认账本" />
+                    android:layout_height="match_parent"
+                    android:layout_weight="20"
+                    android:textSize="20sp"
+                    android:gravity="center_vertical|left"
+                    android:text="name" />
 
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
+            <!--            <androidx.recyclerview.widget.RecyclerView-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="match_parent"-->
+            <!--                android:layout_marginLeft="10dp"-->
+            <!--                android:layout_weight="1" />-->
+
+
+            <!--            <View-->
+            <!--                android:id="@+id/divider2"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="1dp"-->
+            <!--                android:background="?android:attr/listDivider" />-->
+
+            <TextView
+                android:id="@+id/description_text"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_weight="1" />
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:textSize="15sp"
+                android:text="描述" />
 
             <View
-                android:id="@+id/divider2"
+                android:id="@+id/divider3"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="?android:attr/listDivider" />
@@ -69,7 +120,7 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/edit_button"
+                    android:id="@+id/setting_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -89,13 +140,22 @@
                     android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/amount_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="18"
+                    android:gravity="center_vertical|right"
+                    android:text="我的支出（元）："
+                    android:textSize="12sp" />
+
+                <TextView
                     android:id="@+id/amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="15"
-                    android:gravity="center_vertical|right"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|left"
                     android:paddingRight="20dp"
-                    android:text="我的支出：986.6￥"
+                    android:text="金额"
                     android:textSize="12sp" />
             </LinearLayout>
 

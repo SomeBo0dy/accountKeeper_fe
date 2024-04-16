@@ -9,7 +9,7 @@
         android:id="@+id/loginFragment"
         android:name="pers.xyj.accountkeeper.ui.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_mainNavigationFragment"
             app:destination="@id/mainNavigationFragment" />
@@ -17,5 +17,29 @@
     <fragment
         android:id="@+id/mainNavigationFragment"
         android:name="pers.xyj.accountkeeper.ui.mainnavigation.MainNavigationFragment"
-        android:label="MainNavigationFragment" />
+        android:label="MainNavigationFragment">
+        <action
+            android:id="@+id/action_mainNavigationFragment_to_addBookFragment"
+            app:destination="@id/addBookFragment" />
+        <action
+            android:id="@+id/action_mainNavigationFragment_to_recordFragment2"
+            app:destination="@id/recordFragment2" />
+        <action
+            android:id="@+id/action_mainNavigationFragment_to_addRecordFragment"
+            app:destination="@id/addRecordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addBookFragment"
+        android:name="pers.xyj.accountkeeper.ui.book.AddBookFragment"
+        android:label="AddBookFragment"></fragment>
+    <fragment
+        android:id="@+id/recordFragment2"
+        android:name="pers.xyj.accountkeeper.ui.record.RecordFragment"
+        android:label="fragment_record"
+        tools:layout="@layout/fragment_record" />
+    <fragment
+        android:id="@+id/addRecordFragment"
+        android:name="pers.xyj.accountkeeper.ui.record.AddRecordFragment"
+        android:label="fragment_add_record"
+        tools:layout="@layout/fragment_add_record" />
 </navigation>

@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import okhttp3.OkHttpClient
+import pers.xyj.accountkeeper.network.interceptor.HeaderInterceptor
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -25,6 +26,7 @@ class RequestBuilder(context: Context) {
             .connectTimeout(5, TimeUnit.SECONDS)
             .writeTimeout(5, TimeUnit.SECONDS)
             .readTimeout(5, TimeUnit.SECONDS)
+            .addInterceptor(HeaderInterceptor())
             .build()
             .apply {
                 retrofitBuilder = Retrofit.Builder()
@@ -80,6 +82,7 @@ class RequestBuilder(context: Context) {
  */
 object RequestConfiguration {
     const val URL = "http://jzkeeper.somebodycn.xyz:7886"
+//    const val URL = "http://10.0.2.2:7886"
 }
 
 /**

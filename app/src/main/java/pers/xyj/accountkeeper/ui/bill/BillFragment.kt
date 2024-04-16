@@ -7,7 +7,7 @@ import pers.xyj.accountkeeper.base.BaseFragment
 import pers.xyj.accountkeeper.databinding.FragmentBillBinding
 import pers.xyj.accountkeeper.databinding.FragmentBookBinding
 
-class BillFragment: BaseFragment<FragmentBillBinding, ViewModel>(
+class BillFragment : BaseFragment<FragmentBillBinding, ViewModel>(
     FragmentBillBinding::inflate,
     null
 ) {

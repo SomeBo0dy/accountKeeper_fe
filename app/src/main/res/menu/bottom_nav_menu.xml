@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
     <item
         android:id="@+id/bookFragment"
         android:icon="@drawable/book_icon"
-        android:title="账本列表"/>
+        android:title="账本列表" />
+    <item
+        android:id="@id/recordFragment"
+        android:icon="@drawable/small_add"
+        android:title="开始记账"/>
     <item
         android:id="@+id/userFragment"
         android:icon="@drawable/user_icon"
-        android:title="个人中心"/>
+        android:title="个人中心" />
+
 </menu>

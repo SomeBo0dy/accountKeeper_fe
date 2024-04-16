@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <CheckBox
+        android:id="@+id/type_check_box"
+        style="@style/select_flex_style"
+        android:tag="f1"
+        android:textSize="20sp"
+        android:text="日常" />
+</layout>

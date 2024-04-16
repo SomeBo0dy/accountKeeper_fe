@@ -3,16 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_view_navigation"
-    app:startDestination="@id/bookFragment">
+    app:startDestination="@id/recordFragment">
+
+    <fragment
+        android:id="@+id/recordFragment"
+        android:name="pers.xyj.accountkeeper.ui.record.RecordFragment"
+        android:label="fragment_record"
+        tools:layout="@layout/fragment_record" />
 
     <fragment
         android:id="@+id/bookFragment"
         android:name="pers.xyj.accountkeeper.ui.book.BookFragment"
         android:label="fragment_book"
-        tools:layout="@layout/fragment_book" />
+        tools:layout="@layout/fragment_book" >
+        <action
+            android:id="@+id/action_bookFragment_to_recordFragment"
+            app:destination="@id/recordFragment" />
+    </fragment>
     <fragment
         android:id="@+id/userFragment"
         android:name="pers.xyj.accountkeeper.ui.user.UserFragment"
         android:label="fragment_user"
         tools:layout="@layout/fragment_user" />
+
 </navigation>
