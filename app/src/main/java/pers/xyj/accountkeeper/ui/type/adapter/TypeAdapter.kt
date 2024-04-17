@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.CompoundButton
 import androidx.recyclerview.widget.RecyclerView
 import pers.xyj.accountkeeper.R
 import pers.xyj.accountkeeper.repository.entity.Type
@@ -32,6 +33,7 @@ class TypeAdapter(val data: ArrayList<Type>) :
         viewHolder.itemView.setOnClickListener {
             val position = viewHolder.adapterPosition
             mListener.onItemClick(position)
+
         }
         return viewHolder
     }
@@ -40,6 +42,21 @@ class TypeAdapter(val data: ArrayList<Type>) :
         val type: Type = data[position]
         holder.checkBox.tag = type.id
         holder.checkBox.text = type.name
+        holder.checkBox.isChecked = type.isChecked
+        var checkBox = holder.checkBox
+        checkBox.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+            // 当有一个单选框被选中时，将其他的单选框设为未选中状态
+            if (isChecked) {
+                if (buttonView == checkBox){
+                    for (item in data){
+                        item.isChecked = false
+                    }
+                    type.isChecked = true
+                    notifyDataSetChanged()
+                }
+            }
+        }
+        )
     }
 
     override fun getItemCount(): Int {

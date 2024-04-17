@@ -81,8 +81,8 @@ class RequestBuilder(context: Context) {
  *  TODO 网络请求配置
  */
 object RequestConfiguration {
-    const val URL = "http://jzkeeper.somebodycn.xyz:7886"
-//    const val URL = "http://10.0.2.2:7886"
+//    const val URL = "http://jzkeeper.somebodycn.xyz:7886"
+    const val URL = "http://10.0.2.2:7886"
 }
 
 /**

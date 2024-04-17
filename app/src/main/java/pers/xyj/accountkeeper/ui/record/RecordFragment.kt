@@ -3,7 +3,9 @@ package pers.xyj.accountkeeper.ui.record
 import android.os.Bundle
 import android.widget.TextView
 import androidx.navigation.findNavController
+import com.haibin.calendarview.Calendar
 import com.haibin.calendarview.CalendarView
+import com.haibin.calendarview.CalendarView.OnCalendarSelectListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import pers.xyj.accountkeeper.R
@@ -18,6 +20,7 @@ import pers.xyj.accountkeeper.ui.book.BookViewModel
 import pers.xyj.accountkeeper.ui.record.adapter.RecordAdapter
 import pers.xyj.accountkeeper.util.LogUtil
 import java.text.SimpleDateFormat
+import java.util.Date
 
 class RecordFragment : BaseFragment<FragmentRecordBinding, BookViewModel>(
     FragmentRecordBinding::inflate,
@@ -29,6 +32,8 @@ class RecordFragment : BaseFragment<FragmentRecordBinding, BookViewModel>(
     var format: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
     lateinit var calendarView: CalendarView
     lateinit var bookTitle: TextView
+    var bookId: Int = 0
+    var timeInMillis:Long = 0L
 
     override fun initFragment(
         binding: FragmentRecordBinding,
@@ -36,14 +41,34 @@ class RecordFragment : BaseFragment<FragmentRecordBinding, BookViewModel>(
         savedInstanceState: Bundle?
     ) {
         calendarView = binding.calendarView
+        calendarView.setOnCalendarSelectListener (object : CalendarView.OnCalendarSelectListener{
+            override fun onCalendarOutOfRange(calendar: Calendar?) {
+
+            }
+
+            override fun onCalendarSelect(calendar: Calendar?, isClick: Boolean) {
+                if (isClick){
+//                    LogUtil.e(Date(calendar!!.timeInMillis).toString())
+                    viewModel!!.date.value = format.format(Date(calendar!!.timeInMillis))
+                    timeInMillis = calendar!!.timeInMillis
+                    binding.dateText.text = viewModel!!.date.value
+                    initRecordFromDB()
+                }
+
+            }
+
+        })
         bookTitle = binding.bookTitle
-        viewModel!!.date.value =
-            calendarView.curYear.toString() + "-" + calendarView.curMonth.toString() + "-" + calendarView.curDay.toString()
+        timeInMillis = calendarView.selectedCalendar!!.timeInMillis
+        viewModel!!.date.value = format.format(Date(timeInMillis))
         binding.dateText.text = viewModel!!.date.value
         binding.recordsRecyclerView.adapter = recordAdapter
         binding.addRecordButton.setOnClickListener {
+            var bundle: Bundle = Bundle()
+            bundle.putInt("bookId", bookId)
+            bundle.putLong("timeInMillis", timeInMillis)
             requireActivity().findNavController(R.id.app_navigation)
-                .navigate(R.id.action_mainNavigationFragment_to_addRecordFragment)
+                .navigate(R.id.action_mainNavigationFragment_to_addRecordFragment, bundle)
         }
         recordAdapter.setOnItemClickListener(this)
     }
@@ -53,7 +78,7 @@ class RecordFragment : BaseFragment<FragmentRecordBinding, BookViewModel>(
         recordList.removeAll(recordList)
         publicViewModel?.apply {
             request(RecordApi::class.java).getTopBookRecords(
-                format.parse(calendarView.curYear.toString() + "-" + calendarView.curMonth.toString() + "-" + calendarView.curDay.toString()),
+                Date(calendarView.selectedCalendar!!.timeInMillis),
                 1,
                 100
             ).getResponse {
@@ -68,7 +93,7 @@ class RecordFragment : BaseFragment<FragmentRecordBinding, BookViewModel>(
                             var name = bookAndRecordVo.name
                             var description = bookAndRecordVo.description
                             var records: List<Any> = bookAndRecordVo.recordPage.rows
-
+                            bookId = bId
 //                            LogUtil.e(recordList.toString())
                             spUtil.toBeanList(records, recordList)
                             withContext(Dispatchers.Main) {

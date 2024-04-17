@@ -8,4 +8,7 @@ class BookViewModel : ViewModel() {
     val date by lazy {
         MutableLiveData("")
     }
+    val bookId by lazy {
+        MutableLiveData(0)
+    }
 }

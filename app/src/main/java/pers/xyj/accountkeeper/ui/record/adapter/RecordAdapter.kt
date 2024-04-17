@@ -43,7 +43,12 @@ class RecordAdapter(val data: ArrayList<Record>) :
     override fun onBindViewHolder(holder: RecordViewHolder, position: Int) {
         val record: Record = data[position]
         Picasso.get().load(record.imgUrl).into(holder.typeImage)
-        holder.typeText.text = record.description
+        var description = record.description
+        if (description.equals("")){
+            holder.typeText.text = record.typeName
+        }else{
+            holder.typeText.text = description
+        }
         holder.amount.text = String.format("%.2f", record.amount)
     }
 
