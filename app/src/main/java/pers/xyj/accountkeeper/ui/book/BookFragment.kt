@@ -72,6 +72,17 @@ class BookFragment : BaseFragment<FragmentBookBinding, BookRecycleViewModel>(
         updateBooksPriorityToDB(bookList)
     }
 
+    override fun onSettingButtonClick(position: Int) {
+        var bookVo: BookVo = bookList[position]
+        var bundle: Bundle = Bundle()
+        bundle.putBoolean("isEdit", true)
+        bundle.putInt("bookId", bookVo.id)
+        bundle.putString("bookName", bookVo.name)
+        bundle.putString("bookDescription", bookVo.description)
+        requireActivity().findNavController(R.id.app_navigation)
+            .navigate(R.id.action_mainNavigationFragment_to_addBookFragment, bundle)
+    }
+
     fun updateBooksPriorityToDB(bookList: ArrayList<BookVo>) {
 //        var beanList: MutableList<BookPriority> = BeanCopyUtils.copyBeanList(bookList, BookPriority::class.java)
 //        var bookPriorityList: ArrayList<BookPriority>  =  beanList.toList() as ArrayList<BookPriority>

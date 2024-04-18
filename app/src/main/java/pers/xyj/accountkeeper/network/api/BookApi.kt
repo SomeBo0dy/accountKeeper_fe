@@ -4,12 +4,16 @@ import pers.xyj.accountkeeper.network.response.MyResponse
 import pers.xyj.accountkeeper.repository.entity.BookVo
 import pers.xyj.accountkeeper.repository.model.AddBookForm
 import pers.xyj.accountkeeper.repository.model.BookPriority
+import pers.xyj.accountkeeper.repository.model.EditBookForm
+import pers.xyj.accountkeeper.repository.model.EditRecordForm
 import pers.xyj.accountkeeper.repository.model.PageVo
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface BookApi {
@@ -23,6 +27,12 @@ interface BookApi {
     @POST("/books")
     fun addBook(@Body addBookForm: AddBookForm): Call<MyResponse<Nothing>>
 
+    @PUT("/books")
+    fun editBook(@Body editBookForm: EditBookForm): Call<MyResponse<Nothing>>
+
     @PUT("/bookUsers/priority")
     fun updateBooksPriority(@Body bookList: ArrayList<BookVo>?): Call<MyResponse<Nothing>>
+
+    @DELETE("/books/{bookId}")
+    fun deleteBook(@Path("bookId") bookId: Int): Call<MyResponse<Nothing>>
 }

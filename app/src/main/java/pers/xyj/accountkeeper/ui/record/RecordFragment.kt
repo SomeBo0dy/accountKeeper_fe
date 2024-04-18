@@ -27,8 +27,8 @@ class RecordFragment : BaseFragment<FragmentRecordBinding, BookViewModel>(
     BookViewModel::class.java,
     true
 ), RecordAdapter.OnItemClickListener {
-    var recordList: ArrayList<Record> = ArrayList()
-    var recordAdapter: RecordAdapter = RecordAdapter(recordList)
+    val recordList: ArrayList<Record> = ArrayList()
+    val recordAdapter: RecordAdapter = RecordAdapter(recordList)
     var format: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
     lateinit var calendarView: CalendarView
     lateinit var bookTitle: TextView

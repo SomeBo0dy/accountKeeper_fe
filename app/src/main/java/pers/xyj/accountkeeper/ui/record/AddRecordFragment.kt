@@ -29,8 +29,8 @@ class AddRecordFragment : BaseFragment<FragmentAddRecordBinding, AddRecordViewMo
     true
 ), TypeAdapter.OnItemClickListener {
     var isEdit: Boolean = false
-    var typeList: ArrayList<Type> = ArrayList()
-    var typeAdapter: TypeAdapter = TypeAdapter(typeList)
+    val typeList: ArrayList<Type> = ArrayList()
+    val typeAdapter: TypeAdapter = TypeAdapter(typeList)
     var bookId: Int = 0
     var typeId: Int = 0
     var timeInMillis: Long = 0

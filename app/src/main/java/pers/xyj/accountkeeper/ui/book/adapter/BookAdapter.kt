@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextClock
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import pers.xyj.accountkeeper.R
 import pers.xyj.accountkeeper.repository.entity.BookVo
@@ -28,6 +29,8 @@ class BookAdapter(val data: ArrayList<BookVo>) :
 
     interface OnItemClickListener {
         fun onItemClick(position: Int)
+        fun onSettingButtonClick(position: Int)
+
     }
 
     fun setOnItemClickListener(listener: OnItemClickListener) {
@@ -43,10 +46,8 @@ class BookAdapter(val data: ArrayList<BookVo>) :
             mListener.onItemClick(position)
         }
         viewHolder.settingButton.setOnClickListener {
-            var bundle: Bundle = Bundle()
             val position = viewHolder.adapterPosition
-            bundle.putSerializable("book", data[position])
-            //跳转到设置界面
+            mListener.onSettingButtonClick(position)
         }
         return viewHolder
     }

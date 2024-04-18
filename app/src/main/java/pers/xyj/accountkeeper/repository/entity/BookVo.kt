@@ -4,7 +4,7 @@ import java.io.Serializable
 import java.util.Date
 
 data class BookVo(
-    var id: Long,
+    var id: Int,
 
     var name: String,
 

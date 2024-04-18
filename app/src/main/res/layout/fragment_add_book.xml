@@ -42,6 +42,14 @@
                 android:text="新建账本"
                 android:textSize="30sp"
                 android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/save_book_button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:baselineAligned="false"
+                android:paddingRight="10dp"
+                app:srcCompat="@drawable/save_button" />
         </LinearLayout>
 
         <LinearLayout
@@ -84,14 +92,15 @@
                 android:text="@={viewModel.description}" />
 
             <Button
-                android:id="@+id/post_book_button"
+                android:id="@+id/delete_book_button"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
-                android:text="确  定"
-                android:textColor="#424242"
-                android:textSize="30sp"
+                android:text="删  除"
+                android:textColor="#FB725A"
+                android:textSize="40sp"
+                android:visibility="gone"
                 android:textStyle="bold" />
         </LinearLayout>
 
