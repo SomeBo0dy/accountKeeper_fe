@@ -2,7 +2,9 @@ package pers.xyj.accountkeeper.ui.login
 
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Looper
+import android.widget.Button
 import android.widget.Toast
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -26,14 +28,15 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginFragmentViewModel>
     LoginFragmentViewModel::class.java,
     true
 ) {
-
+    var timer: CountDownTimer? = null
+    lateinit var codeButton: Button
     override fun initFragment(
         binding: FragmentLoginBinding,
         viewModel: LoginFragmentViewModel?,
         savedInstanceState: Bundle?
     ) {
         viewModel!!.apply {
-//            publicViewModel?.spUtil!!.removeItem("token")
+            publicViewModel?.spUtil!!.removeItem("token")
             var token = publicViewModel?.spUtil!!.getItem("token", "") as String
             if (token != "") {
                 findNavController().navigate(
@@ -43,6 +46,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginFragmentViewModel>
                 )
             }
             binding.viewModel = this
+            codeButton = binding.buttonCode
             binding.buttonLogin.setOnClickListener {
                 if (checkBox(phone.value, code.value)) {
                     loginRequest(phone.value!!, code.value!!)
@@ -57,6 +61,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginFragmentViewModel>
                         .show()
                 } else {
                     sendCode(phone.value!!)
+                    codeButton.isEnabled = false
+                    //倒计时
+                    startTimer()
                 }
             }
         }
@@ -85,19 +92,38 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginFragmentViewModel>
                         ApiResponse.Loading -> LogUtil.e("Loading")
                         is ApiResponse.Success -> {
                             LogUtil.e("${it.data.toString()}")
-
-                            Looper.prepare();
+                            Looper.prepare()
                             Toast.makeText(
                                 requireContext(),
                                 "验证码发送成功",
                                 Toast.LENGTH_SHORT
                             ).show()
-                            Looper.loop();
+                            Looper.loop()
                         }
                     }
                 }
             }
         }
+    }
+
+    private fun startTimer() {
+        timer = object : CountDownTimer(60000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                codeButton.text = "${millisUntilFinished / 1000} 秒后可重新发送"
+            }
+
+            override fun onFinish() {
+                codeButton.isEnabled = true
+                codeButton.text = "获取验证码"
+            }
+
+        }.start()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // 销毁时取消计时器
+        timer?.cancel()
     }
 
     private fun loginRequest(phone: String, code: String) {
