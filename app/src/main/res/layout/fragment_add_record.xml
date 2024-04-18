@@ -86,7 +86,7 @@
                 android:paddingLeft="15dp"
                 android:gravity="center_vertical"
                 android:hint="请输入支付金额"
-                android:text="@={viewModel.dataBindingVariable}"/>
+                android:text="@={viewModel.amount}"/>
 
             <ImageView
                 android:id="@+id/clear_text"
@@ -156,5 +156,18 @@
 <!--            android:layout_height="wrap_content"-->
 <!--            keyboard:xmlLayoutResId="@xml/keyboard_numbers"-->
 <!--            />-->
+        <Button
+            android:id="@+id/delete_record_button"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginRight="30dp"
+            android:text="删  除"
+            android:textColor="#FB725A"
+            android:textSize="40sp"
+            android:visibility="gone"
+            android:textStyle="bold" />
     </LinearLayout>
 </layout>

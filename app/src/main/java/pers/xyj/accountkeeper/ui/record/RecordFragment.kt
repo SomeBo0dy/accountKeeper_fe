@@ -65,6 +65,7 @@ class RecordFragment : BaseFragment<FragmentRecordBinding, BookViewModel>(
         binding.recordsRecyclerView.adapter = recordAdapter
         binding.addRecordButton.setOnClickListener {
             var bundle: Bundle = Bundle()
+            bundle.putBoolean("isEdit", false)
             bundle.putInt("bookId", bookId)
             bundle.putLong("timeInMillis", timeInMillis)
             requireActivity().findNavController(R.id.app_navigation)
@@ -109,7 +110,15 @@ class RecordFragment : BaseFragment<FragmentRecordBinding, BookViewModel>(
     }
 
     override fun onItemClick(position: Int) {
-
+        var record = recordList[position]
+        var bundle: Bundle = Bundle()
+        bundle.putBoolean("isEdit", true)
+        bundle.putLong("recordId",record.id)
+        bundle.putDouble("recordAmount",record.amount)
+        bundle.putInt("typeId",record.tId)
+        bundle.putString("description",record.description)
+        requireActivity().findNavController(R.id.app_navigation)
+            .navigate(R.id.action_mainNavigationFragment_to_addRecordFragment, bundle)
     }
 
     override fun onResume() {

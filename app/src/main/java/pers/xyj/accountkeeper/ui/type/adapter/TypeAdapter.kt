@@ -33,7 +33,6 @@ class TypeAdapter(val data: ArrayList<Type>) :
         viewHolder.itemView.setOnClickListener {
             val position = viewHolder.adapterPosition
             mListener.onItemClick(position)
-
         }
         return viewHolder
     }
