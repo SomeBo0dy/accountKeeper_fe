@@ -36,7 +36,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginFragmentViewModel>
         savedInstanceState: Bundle?
     ) {
         viewModel!!.apply {
-            publicViewModel?.spUtil!!.removeItem("token")
+//            publicViewModel?.spUtil!!.removeItem("token")
             var token = publicViewModel?.spUtil!!.getItem("token", "") as String
             if (token != "") {
                 findNavController().navigate(

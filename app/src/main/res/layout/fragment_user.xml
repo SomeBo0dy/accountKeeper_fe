@@ -90,7 +90,7 @@
                 </LinearLayout>
 
                 <ImageButton
-                    android:id="@+id/button2"
+                    android:id="@+id/edit_button"
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

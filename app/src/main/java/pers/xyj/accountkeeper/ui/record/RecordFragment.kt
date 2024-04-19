@@ -1,6 +1,8 @@
 package pers.xyj.accountkeeper.ui.record
 
 import android.os.Bundle
+import android.view.View
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.navigation.findNavController
 import com.haibin.calendarview.Calendar
@@ -32,6 +34,7 @@ class RecordFragment : BaseFragment<FragmentRecordBinding, BookViewModel>(
     var format: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
     lateinit var calendarView: CalendarView
     lateinit var bookTitle: TextView
+    lateinit var noRecordLayout: LinearLayout
     var bookId: Int = 0
     var timeInMillis:Long = 0L
 
@@ -59,6 +62,7 @@ class RecordFragment : BaseFragment<FragmentRecordBinding, BookViewModel>(
 
         })
         bookTitle = binding.bookTitle
+        noRecordLayout= binding.noRecordLayout
         timeInMillis = calendarView.selectedCalendar!!.timeInMillis
         viewModel!!.date.value = format.format(Date(timeInMillis))
         binding.dateText.text = viewModel!!.date.value
@@ -95,13 +99,18 @@ class RecordFragment : BaseFragment<FragmentRecordBinding, BookViewModel>(
                             var description = bookAndRecordVo.description
                             var records: List<Any> = bookAndRecordVo.recordPage.rows
                             bookId = bId
-//                            LogUtil.e(recordList.toString())
                             spUtil.toBeanList(records, recordList)
+
                             withContext(Dispatchers.Main) {
-                                bookTitle.text = name
                                 recordAdapter.notifyDataSetChanged()
+                                if (recordList.size == 0){
+                                    noRecordLayout.visibility = View.VISIBLE
+                                }else{
+                                    noRecordLayout.visibility = View.GONE
+                                }
+                                bookTitle.text = name
                             }
-//                            LogUtil.e(recordList.toString())
+//
                         }
                     }
                 }
