@@ -119,9 +119,9 @@
                 android:elevation="10dp"
                 android:orientation="horizontal"
                 android:paddingLeft="10dp"
-                android:paddingTop="20dp"
+                android:paddingTop="10dp"
                 android:paddingRight="10dp"
-                android:paddingBottom="20dp">
+                android:paddingBottom="10dp">
 
                 <ImageView
                     android:id="@+id/import_image"
@@ -144,7 +144,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="250dp"
                     android:gravity="right|center_vertical"
-                    android:src="@drawable/right_arch_gray" />
+                    android:src="@drawable/right_arch" />
             </LinearLayout>
 
             <LinearLayout
@@ -154,9 +154,9 @@
                 android:elevation="10dp"
                 android:orientation="horizontal"
                 android:paddingLeft="10dp"
-                android:paddingTop="20dp"
+                android:paddingTop="10dp"
                 android:paddingRight="10dp"
-                android:paddingBottom="20dp">
+                android:paddingBottom="10dp">
 
                 <ImageView
                     android:id="@+id/output_image"
@@ -179,7 +179,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="250dp"
                     android:gravity="right|center_vertical"
-                    android:src="@drawable/right_arch_gray" />
+                    android:src="@drawable/right_arch" />
             </LinearLayout>
 
             <LinearLayout
@@ -189,9 +189,9 @@
                 android:elevation="10dp"
                 android:orientation="horizontal"
                 android:paddingLeft="10dp"
-                android:paddingTop="20dp"
+                android:paddingTop="10dp"
                 android:paddingRight="10dp"
-                android:paddingBottom="20dp">
+                android:paddingBottom="10dp">
 
                 <ImageView
                     android:id="@+id/bill_reminder_image"
@@ -214,7 +214,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="250dp"
                     android:gravity="right|center_vertical"
-                    android:src="@drawable/right_arch_gray" />
+                    android:src="@drawable/right_arch" />
             </LinearLayout>
 
             <LinearLayout
@@ -224,9 +224,9 @@
                 android:elevation="10dp"
                 android:orientation="horizontal"
                 android:paddingLeft="10dp"
-                android:paddingTop="20dp"
+                android:paddingTop="10dp"
                 android:paddingRight="10dp"
-                android:paddingBottom="20dp">
+                android:paddingBottom="10dp">
 
                 <ImageView
                     android:id="@+id/img_record"
@@ -249,7 +249,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="250dp"
                     android:gravity="right|center_vertical"
-                    android:src="@drawable/right_arch_gray" />
+                    android:src="@drawable/right_arch" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

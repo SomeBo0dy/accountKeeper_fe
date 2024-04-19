@@ -21,4 +21,6 @@ interface LoginApi {
     //    @Headers("Content-Type: application/json;charset=utf-8", "Accept: application/json")
     @POST("/login/phone")
     fun login(@Body loginInfo: LoginFoem): Call<MyResponse<LoginUserInfo>>
+    @POST("/logout")
+    fun logout(): Call<MyResponse<LoginUserInfo>>
 }

@@ -17,6 +17,9 @@ class UserFragment : BaseFragment<FragmentUserBinding, ViewModel>(
     null,
     true
 ) {
+    var nickname: String = ""
+    var introduction: String = ""
+    var avatar: String = ""
     override fun initFragment(
         binding: FragmentUserBinding,
         viewModel: ViewModel?,
@@ -25,16 +28,23 @@ class UserFragment : BaseFragment<FragmentUserBinding, ViewModel>(
         publicViewModel?.apply {
             LogUtil.e((spUtil.getItem("token", "")) as String)
             var userInfo = spUtil.getObjectItem("userInfo", UserInfo()) as UserInfo
-            binding.nicknameText.setText(userInfo.nickName)
-            binding.introductionText.setText(userInfo.introduction)
-            Picasso.get().load(userInfo.avatar).into(binding.avatar)
+            nickname = userInfo.nickName
+            introduction = userInfo.introduction
+            avatar = userInfo.avatar
+            binding.nicknameText.setText(nickname)
+            binding.introductionText.setText(introduction)
+            Picasso.get().load(avatar).into(binding.avatar)
             binding.editUserButton.setOnClickListener{
                 requireActivity().findNavController(R.id.app_navigation)
                     .navigate(R.id.action_mainNavigationFragment_to_editUserFragment)
             }
             binding.editButton.setOnClickListener{
+                var bundle: Bundle = Bundle()
+                bundle.putString("nickname", nickname)
+                bundle.putString("introduction", introduction)
+                bundle.putString("avatar", avatar)
                 requireActivity().findNavController(R.id.app_navigation)
-                    .navigate(R.id.action_mainNavigationFragment_to_editUserFragment)
+                    .navigate(R.id.action_mainNavigationFragment_to_editUserFragment, bundle)
             }
         }
     }
