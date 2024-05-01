@@ -29,6 +29,7 @@ interface RecordApi {
         @Query("pageNum") pageNum: Number,
         @Query("pageSize") pageSize: Number
     ): Call<MyResponse<BookAndRecordVo>>
+
     @POST("/records")
     fun addRecord(@Body addRecordForm: AddRecordForm): Call<MyResponse<Nothing>>
     @PUT("/records")

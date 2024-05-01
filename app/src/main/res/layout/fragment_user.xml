@@ -126,7 +126,7 @@
                 <ImageView
                     android:id="@+id/import_image"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:scaleType="fitEnd"
                     android:src="@drawable/import_book" />
 
@@ -161,7 +161,7 @@
                 <ImageView
                     android:id="@+id/output_image"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:scaleType="fitEnd"
                     android:src="@drawable/output_arch" />
 
@@ -196,7 +196,7 @@
                 <ImageView
                     android:id="@+id/bill_reminder_image"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:scaleType="fitEnd"
                     android:src="@drawable/bill_reminder" />
 
@@ -231,7 +231,7 @@
                 <ImageView
                     android:id="@+id/img_record"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:scaleType="fitEnd"
                     android:src="@drawable/record" />
 

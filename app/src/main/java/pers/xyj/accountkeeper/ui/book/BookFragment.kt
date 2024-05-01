@@ -1,7 +1,10 @@
 package pers.xyj.accountkeeper.ui.book
 
 import android.os.Bundle
+import android.widget.ImageView
+import androidx.databinding.BindingAdapter
 import androidx.navigation.findNavController
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import pers.xyj.accountkeeper.R
@@ -81,6 +84,16 @@ class BookFragment : BaseFragment<FragmentBookBinding, BookRecycleViewModel>(
         bundle.putString("bookDescription", bookVo.description)
         requireActivity().findNavController(R.id.app_navigation)
             .navigate(R.id.action_mainNavigationFragment_to_addBookFragment, bundle)
+    }
+
+    override fun onReportButtonClick(position: Int) {
+        var bookVo: BookVo = bookList[position]
+        var bundle: Bundle = Bundle()
+        bundle.putInt("bookId", bookVo.id)
+        bundle.putString("bookName", bookVo.name)
+        bundle.putString("bookDescription", bookVo.description)
+        requireActivity().findNavController(R.id.app_navigation)
+            .navigate(R.id.action_mainNavigationFragment_to_dashboardFragment, bundle)
     }
 
     fun updateBooksPriorityToDB(bookList: ArrayList<BookVo>) {

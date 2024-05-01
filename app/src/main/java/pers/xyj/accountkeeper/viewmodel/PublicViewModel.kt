@@ -2,6 +2,8 @@ package com.setruth.mvvmbaseproject.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.setruth.doublewillow.utils.SPUtil
 import kotlinx.coroutines.Dispatchers
@@ -23,7 +25,13 @@ import pers.xyj.accountkeeper.network.ApiResponse
  * @Date: 2023/3/26 15:28
  */
 class PublicViewModel(application: Application) : AndroidViewModel(application) {
-
+    private val _selectedString = MutableLiveData<String>()
+    val publicEditStringType by lazy {
+        MutableLiveData("")
+    }
+    val publicEditString by lazy {
+        MutableLiveData("")
+    }
     val requestBuilder = RequestBuilder(application.applicationContext)
     val spUtil = SPUtil(application.applicationContext)
     fun <T> request(APIType: Class<T>): T = requestBuilder.getAPI(APIType)

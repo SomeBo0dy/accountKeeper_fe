@@ -25,11 +25,13 @@ class BookAdapter(val data: ArrayList<BookVo>) :
         var createTime: TextView = view.findViewById(R.id.create_time)
         var amount: TextView = view.findViewById(R.id.amount)
         var settingButton: Button = view.findViewById(R.id.setting_button)
+        var reportButton: Button = view.findViewById(R.id.report_button)
     }
 
     interface OnItemClickListener {
         fun onItemClick(position: Int)
         fun onSettingButtonClick(position: Int)
+        fun onReportButtonClick(position: Int)
 
     }
 
@@ -48,6 +50,10 @@ class BookAdapter(val data: ArrayList<BookVo>) :
         viewHolder.settingButton.setOnClickListener {
             val position = viewHolder.adapterPosition
             mListener.onSettingButtonClick(position)
+        }
+        viewHolder.reportButton.setOnClickListener {
+            val position = viewHolder.adapterPosition
+            mListener.onReportButtonClick(position)
         }
         return viewHolder
     }

@@ -35,8 +35,12 @@ class UserFragment : BaseFragment<FragmentUserBinding, ViewModel>(
             binding.introductionText.setText(introduction)
             Picasso.get().load(avatar).into(binding.avatar)
             binding.editUserButton.setOnClickListener{
+                var bundle: Bundle = Bundle()
+                bundle.putString("nickname", nickname)
+                bundle.putString("introduction", introduction)
+                bundle.putString("avatar", avatar)
                 requireActivity().findNavController(R.id.app_navigation)
-                    .navigate(R.id.action_mainNavigationFragment_to_editUserFragment)
+                    .navigate(R.id.action_mainNavigationFragment_to_editUserFragment, bundle)
             }
             binding.editButton.setOnClickListener{
                 var bundle: Bundle = Bundle()

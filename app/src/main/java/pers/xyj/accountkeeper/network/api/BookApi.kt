@@ -3,7 +3,9 @@ package pers.xyj.accountkeeper.network.api
 import pers.xyj.accountkeeper.network.response.MyResponse
 import pers.xyj.accountkeeper.repository.entity.BookVo
 import pers.xyj.accountkeeper.repository.model.AddBookForm
+import pers.xyj.accountkeeper.repository.model.BookAndRecordVo
 import pers.xyj.accountkeeper.repository.model.BookPriority
+import pers.xyj.accountkeeper.repository.model.BookStatisticsVo
 import pers.xyj.accountkeeper.repository.model.EditBookForm
 import pers.xyj.accountkeeper.repository.model.EditRecordForm
 import pers.xyj.accountkeeper.repository.model.PageVo
@@ -23,7 +25,8 @@ interface BookApi {
         @Query("pageNum") pageNum: Number,
         @Query("pageSize") pageSize: Number
     ): Call<MyResponse<PageVo>>
-
+    @GET("/books/statistics/{bookId}")
+    fun getBookStatistics(@Path("bookId") bookId: Int): Call<MyResponse<BookStatisticsVo>>
     @POST("/books")
     fun addBook(@Body addBookForm: AddBookForm): Call<MyResponse<Nothing>>
 
