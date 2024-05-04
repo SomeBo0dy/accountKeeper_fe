@@ -26,7 +26,8 @@ class UserFragment : BaseFragment<FragmentUserBinding, ViewModel>(
         savedInstanceState: Bundle?
     ) {
         publicViewModel?.apply {
-            LogUtil.e((spUtil.getItem("token", "")) as String)
+//            LogUtil.e((spUtil.getItem("accessToken", "")) as String)
+//            LogUtil.e((spUtil.getItem("refreshToken", "")) as String)
             var userInfo = spUtil.getObjectItem("userInfo", UserInfo()) as UserInfo
             nickname = userInfo.nickName
             introduction = userInfo.introduction
@@ -35,20 +36,20 @@ class UserFragment : BaseFragment<FragmentUserBinding, ViewModel>(
             binding.introductionText.setText(introduction)
             Picasso.get().load(avatar).into(binding.avatar)
             binding.editUserButton.setOnClickListener{
-                var bundle: Bundle = Bundle()
-                bundle.putString("nickname", nickname)
-                bundle.putString("introduction", introduction)
-                bundle.putString("avatar", avatar)
+//                var bundle: Bundle = Bundle()
+//                bundle.putString("nickname", nickname)
+//                bundle.putString("introduction", introduction)
+//                bundle.putString("avatar", avatar)
                 requireActivity().findNavController(R.id.app_navigation)
-                    .navigate(R.id.action_mainNavigationFragment_to_editUserFragment, bundle)
+                    .navigate(R.id.action_mainNavigationFragment_to_editUserFragment)
             }
             binding.editButton.setOnClickListener{
-                var bundle: Bundle = Bundle()
-                bundle.putString("nickname", nickname)
-                bundle.putString("introduction", introduction)
-                bundle.putString("avatar", avatar)
+//                var bundle: Bundle = Bundle()
+//                bundle.putString("nickname", nickname)
+//                bundle.putString("introduction", introduction)
+//                bundle.putString("avatar", avatar)
                 requireActivity().findNavController(R.id.app_navigation)
-                    .navigate(R.id.action_mainNavigationFragment_to_editUserFragment, bundle)
+                    .navigate(R.id.action_mainNavigationFragment_to_editUserFragment)
             }
         }
     }

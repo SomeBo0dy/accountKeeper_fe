@@ -36,8 +36,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginFragmentViewModel>
         savedInstanceState: Bundle?
     ) {
         viewModel!!.apply {
-//            publicViewModel?.spUtil!!.removeItem("token")
-            var token = publicViewModel?.spUtil!!.getItem("token", "") as String
+//            publicViewModel?.spUtil!!.removeItem("accessToken")
+            var token = publicViewModel?.spUtil!!.getItem("accessToken", "") as String
             if (token != "") {
                 findNavController().navigate(
                     R.id.mainNavigationFragment,
@@ -137,7 +137,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginFragmentViewModel>
                             is ApiResponse.Success -> {
                                 LogUtil.e("${it.data?.data.toString()}")
                                 var loginInfo: LoginUserInfo = (it.data?.data) as LoginUserInfo
-                                spUtil.setItem("token", loginInfo.token)
+                                spUtil.setItem("accessToken", loginInfo.accessToken)
+                                spUtil.setItem("refreshToken", loginInfo.refreshToken)
                                 spUtil.setItem("userInfo", loginInfo.userInfoVo)
                                 withContext(Dispatchers.Main) {
                                     findNavController().navigate(

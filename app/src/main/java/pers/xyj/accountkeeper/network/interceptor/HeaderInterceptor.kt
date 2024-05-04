@@ -10,7 +10,7 @@ import kotlin.coroutines.coroutineContext
 
 class HeaderInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
-        var token: String = SPUtil(context).getItem("token", "") as String
+        var token: String = SPUtil(context).getItem("accessToken", "") as String
         var originalRequest: Request = chain.request()
         var request: Request =
             originalRequest.newBuilder()

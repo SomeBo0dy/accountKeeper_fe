@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import okhttp3.OkHttpClient
 import pers.xyj.accountkeeper.network.interceptor.HeaderInterceptor
+import pers.xyj.accountkeeper.network.interceptor.RefreshInterceptor
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -27,6 +28,7 @@ class RequestBuilder(context: Context) {
             .writeTimeout(5, TimeUnit.SECONDS)
             .readTimeout(5, TimeUnit.SECONDS)
             .addInterceptor(HeaderInterceptor())
+//            .addInterceptor(RefreshInterceptor())
             .build()
             .apply {
                 retrofitBuilder = Retrofit.Builder()
@@ -81,8 +83,8 @@ class RequestBuilder(context: Context) {
  *  TODO 网络请求配置
  */
 object RequestConfiguration {
-    const val URL = "http://jzkeeper.somebodycn.xyz:7964"
-//    const val URL = "http://10.0.2.2:7964"
+//    const val URL = "http://jzkeeper.somebodycn.xyz:7964"
+    const val URL = "http://10.0.2.2:7964"
 }
 
 /**
