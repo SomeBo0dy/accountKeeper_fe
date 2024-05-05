@@ -172,7 +172,6 @@ class EditUserFragment : BaseFragment<FragmentEditUserBinding, EditUserViewModel
                                         NavOptions.Builder()
                                             .setPopUpTo(R.id.mainNavigationFragment, true)
                                             .build()
-                                        //TODO
                                     )
                                 }
                             }

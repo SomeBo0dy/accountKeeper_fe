@@ -135,7 +135,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginFragmentViewModel>
                             is ApiResponse.Error -> LogUtil.e("${it.errMsg} ${it.errMsg}")
                             ApiResponse.Loading -> LogUtil.e("Loading")
                             is ApiResponse.Success -> {
-                                LogUtil.e("${it.data?.data.toString()}")
                                 var loginInfo: LoginUserInfo = (it.data?.data) as LoginUserInfo
                                 spUtil.setItem("accessToken", loginInfo.accessToken)
                                 spUtil.setItem("refreshToken", loginInfo.refreshToken)

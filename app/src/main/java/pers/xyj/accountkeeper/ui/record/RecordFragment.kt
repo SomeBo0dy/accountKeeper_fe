@@ -1,5 +1,4 @@
 package pers.xyj.accountkeeper.ui.record
-
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
@@ -18,6 +17,7 @@ import pers.xyj.accountkeeper.network.api.RecordApi
 import pers.xyj.accountkeeper.repository.entity.Record
 import pers.xyj.accountkeeper.repository.model.BookAndRecordVo
 import pers.xyj.accountkeeper.repository.model.PageVo
+import pers.xyj.accountkeeper.repository.model.UserInfo
 import pers.xyj.accountkeeper.ui.book.BookViewModel
 import pers.xyj.accountkeeper.ui.record.adapter.RecordAdapter
 import pers.xyj.accountkeeper.util.LogUtil
@@ -37,12 +37,15 @@ class RecordFragment : BaseFragment<FragmentRecordBinding, BookViewModel>(
     lateinit var noRecordLayout: LinearLayout
     var bookId: Int = 0
     var timeInMillis:Long = 0L
-
+    var createBy:Long = -1L
+    var userId:Long = -1L
     override fun initFragment(
         binding: FragmentRecordBinding,
         viewModel: BookViewModel?,
         savedInstanceState: Bundle?
     ) {
+        var userInfo = publicViewModel!!.spUtil.getObjectItem("userInfo", UserInfo()) as UserInfo
+        userId = userInfo.id
         calendarView = binding.calendarView
         calendarView.setOnCalendarSelectListener (object : CalendarView.OnCalendarSelectListener{
             override fun onCalendarOutOfRange(calendar: Calendar?) {
@@ -75,6 +78,13 @@ class RecordFragment : BaseFragment<FragmentRecordBinding, BookViewModel>(
             requireActivity().findNavController(R.id.app_navigation)
                 .navigate(R.id.action_mainNavigationFragment_to_addRecordFragment, bundle)
         }
+        binding.shareButton.setOnClickListener {
+            var bundle: Bundle = Bundle()
+            bundle.putBoolean("isOwner", userId == createBy)
+            bundle.putInt("bookId", bookId)
+            requireActivity().findNavController(R.id.app_navigation)
+                .navigate(R.id.action_mainNavigationFragment_to_shareCodeFragment, bundle)
+        }
         recordAdapter.setOnItemClickListener(this)
     }
 
@@ -92,10 +102,11 @@ class RecordFragment : BaseFragment<FragmentRecordBinding, BookViewModel>(
                         is ApiResponse.Error -> LogUtil.e("${it.errMsg} ${it.errMsg}")
                         ApiResponse.Loading -> LogUtil.e("Loading")
                         is ApiResponse.Success -> {
-//                            LogUtil.e("${it.data.toString()}")
+                            LogUtil.e("${it.data.toString()}")
                             var bookAndRecordVo: BookAndRecordVo = it.data?.data as BookAndRecordVo
                             var bId = bookAndRecordVo.bId
                             var name = bookAndRecordVo.name
+                            createBy = bookAndRecordVo.createBy
                             var description = bookAndRecordVo.description
                             var records: List<Any> = bookAndRecordVo.recordPage.rows
                             bookId = bId

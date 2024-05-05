@@ -1,24 +1,33 @@
 package pers.xyj.accountkeeper.ui.book.adapter
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextClock
 import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.setruth.doublewillow.utils.SPUtil
 import pers.xyj.accountkeeper.R
 import pers.xyj.accountkeeper.repository.entity.BookVo
+import pers.xyj.accountkeeper.repository.model.UserInfo
+import pers.xyj.accountkeeper.util.appContext
 import java.text.SimpleDateFormat
 
 class BookAdapter(val data: ArrayList<BookVo>) :
     RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
 
     private lateinit var mListener: OnItemClickListener
+    val spUtil = SPUtil(appContext)
+    val userInfo = spUtil.getObjectItem("userInfo", UserInfo()) as UserInfo
+    val userId: Long = userInfo.id
 
     inner class BookViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        var bookContainer: LinearLayout = view.findViewById(R.id.book_container)
         var bookName: TextView = view.findViewById(R.id.book_name)
         var memberCount: TextView = view.findViewById(R.id.member_count)
         var description: TextView = view.findViewById(R.id.description_text)
@@ -66,6 +75,9 @@ class BookAdapter(val data: ArrayList<BookVo>) :
         var format: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
         holder.createTime.text = format.format(book.createTime)
         holder.amount.text = String.format("%.2f", book.amount)
+        if (book.createBy != userId) {
+            holder.bookContainer.setBackgroundColor(Color.parseColor("#F3FEB0"))
+        }
     }
 
     override fun getItemCount(): Int {

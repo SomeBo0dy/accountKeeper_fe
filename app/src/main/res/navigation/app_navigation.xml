@@ -22,9 +22,6 @@
             android:id="@+id/action_mainNavigationFragment_to_addBookFragment"
             app:destination="@id/addBookFragment" />
         <action
-            android:id="@+id/action_mainNavigationFragment_to_recordFragment2"
-            app:destination="@id/recordFragment2" />
-        <action
             android:id="@+id/action_mainNavigationFragment_to_addRecordFragment"
             app:destination="@id/addRecordFragment" />
         <action
@@ -33,16 +30,17 @@
         <action
             android:id="@+id/action_mainNavigationFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
+        <action
+            android:id="@+id/action_mainNavigationFragment_to_shareCodeFragment"
+            app:destination="@id/shareCodeFragment" />
+        <action
+            android:id="@+id/action_mainNavigationFragment_to_joinBookFragment"
+            app:destination="@id/joinBookFragment" />
     </fragment>
     <fragment
         android:id="@+id/addBookFragment"
         android:name="pers.xyj.accountkeeper.ui.book.AddBookFragment"
         android:label="AddBookFragment"></fragment>
-    <fragment
-        android:id="@+id/recordFragment2"
-        android:name="pers.xyj.accountkeeper.ui.record.RecordFragment"
-        android:label="fragment_record"
-        tools:layout="@layout/fragment_record" />
     <fragment
         android:id="@+id/addRecordFragment"
         android:name="pers.xyj.accountkeeper.ui.record.AddRecordFragment"
@@ -70,4 +68,14 @@
         android:name="pers.xyj.accountkeeper.ui.user.EditStringFragment"
         android:label="fragment_edit_string"
         tools:layout="@layout/fragment_edit_string" />
+    <fragment
+        android:id="@+id/shareCodeFragment"
+        android:name="pers.xyj.accountkeeper.ui.book.ShareCodeFragment"
+        android:label="fragment_share_code"
+        tools:layout="@layout/fragment_share_code" />
+    <fragment
+        android:id="@+id/joinBookFragment"
+        android:name="pers.xyj.accountkeeper.ui.book.JoinBookFragment"
+        android:label="fragment_join_book"
+        tools:layout="@layout/fragment_join_book" />
 </navigation>

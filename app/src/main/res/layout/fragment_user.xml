@@ -70,7 +70,7 @@
 
                     <TextView
                         android:id="@+id/nickname_text"
-                        android:layout_width="wrap_content"
+                        android:layout_width="225dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="30dp"
                         android:layout_marginTop="30dp"
@@ -81,7 +81,7 @@
 
                     <TextView
                         android:id="@+id/introduction_text"
-                        android:layout_width="wrap_content"
+                        android:layout_width="225dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="30dp"
                         android:layout_weight="5"
@@ -108,10 +108,45 @@
             android:id="@+id/main_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="30dp"
             android:orientation="vertical">
 
 
+            <LinearLayout
+                android:id="@+id/join_book_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:elevation="10dp"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp">
+
+                <ImageView
+                    android:id="@+id/share_book_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitEnd"
+                    android:src="@drawable/share_blue" />
+
+                <TextView
+                    android:id="@+id/share_book_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="left|center_vertical"
+                    android:text="填写邀请码" />
+
+                <ImageView
+                    android:id="@+id/share_book_right_arch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="250dp"
+                    android:gravity="right|center_vertical"
+                    android:src="@drawable/right_arch" />
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

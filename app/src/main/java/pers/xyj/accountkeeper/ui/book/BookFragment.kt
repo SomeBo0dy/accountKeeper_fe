@@ -1,10 +1,7 @@
 package pers.xyj.accountkeeper.ui.book
 
 import android.os.Bundle
-import android.widget.ImageView
-import androidx.databinding.BindingAdapter
 import androidx.navigation.findNavController
-import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import pers.xyj.accountkeeper.R
@@ -13,10 +10,8 @@ import pers.xyj.accountkeeper.databinding.FragmentBookBinding
 import pers.xyj.accountkeeper.network.ApiResponse
 import pers.xyj.accountkeeper.network.api.BookApi
 import pers.xyj.accountkeeper.repository.entity.BookVo
-import pers.xyj.accountkeeper.repository.model.BookPriority
 import pers.xyj.accountkeeper.repository.model.PageVo
 import pers.xyj.accountkeeper.ui.book.adapter.BookAdapter
-import pers.xyj.accountkeeper.util.BeanCopyUtils
 import pers.xyj.accountkeeper.util.LogUtil
 
 class BookFragment : BaseFragment<FragmentBookBinding, BookRecycleViewModel>(
@@ -35,8 +30,11 @@ class BookFragment : BaseFragment<FragmentBookBinding, BookRecycleViewModel>(
         binding.viewModel = viewModel
         binding.booksRecyclerView.adapter = bookAdapter
         binding.addButton.setOnClickListener {
+            var bundle: Bundle = Bundle()
+            bundle.putBoolean("isEdit", false)
+            bundle.putInt("bookCount", bookList.size)
             requireActivity().findNavController(R.id.app_navigation)
-                .navigate(R.id.action_mainNavigationFragment_to_addBookFragment)
+                .navigate(R.id.action_mainNavigationFragment_to_addBookFragment, bundle)
         }
         bookAdapter.setOnItemClickListener(this)
     }

@@ -1,4 +1,4 @@
-package pers.xyj.accountkeeper.repository.model
+package pers.xyj.accountkeeper.repository.entity
 
 data class BookPriority(
     var id: Long,

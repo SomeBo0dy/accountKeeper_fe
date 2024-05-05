@@ -26,22 +26,25 @@ class AddBookFragment : BaseFragment<FragmentAddBookBinding, AddBookViewModel>(
     AddBookViewModel::class.java,
     true
 ) {
-    var isEdit: Boolean= false
+    var isEdit: Boolean = false
     var bookId: Int = 0
+    var bookCount: Int = 0
     override fun initFragment(
         binding: FragmentAddBookBinding,
         viewModel: AddBookViewModel?,
         savedInstanceState: Bundle?
     ) {
         val bundle = arguments
-        if (bundle != null){
+        if (bundle != null) {
             isEdit = bundle.getBoolean("isEdit")
-            if (isEdit){
+            if (isEdit) {
                 binding.appName.text = "编辑账本"
                 binding.deleteBookButton.visibility = View.VISIBLE
                 bookId = bundle.getInt("bookId")
                 viewModel!!.name.value = bundle.getString("bookName")
                 viewModel!!.description.value = bundle.getString("bookDescription")
+            } else {
+                bookCount = bundle.getInt("bookCount")
             }
         }
         binding.deleteBookButton.setOnClickListener {
@@ -89,11 +92,12 @@ class AddBookFragment : BaseFragment<FragmentAddBookBinding, AddBookViewModel>(
                         .show()
                 } else {
                     publicViewModel?.apply {
-                        if (!isEdit){
+                        if (!isEdit) {
                             request(BookApi::class.java).addBook(
                                 AddBookForm(
                                     name.value!!,
-                                    description.value!!
+                                    description.value!!,
+                                    bookCount + 1
                                 )
                             ).getResponse {
                                 it.collect {
@@ -110,7 +114,7 @@ class AddBookFragment : BaseFragment<FragmentAddBookBinding, AddBookViewModel>(
                                     }
                                 }
                             }
-                        }else{
+                        } else {
                             request(BookApi::class.java).editBook(
                                 EditBookForm(
                                     bookId,
