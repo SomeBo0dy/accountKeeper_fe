@@ -51,8 +51,8 @@ class ShareCodeFragment : BaseFragment<FragmentShareCodeBinding, ViewModel>(
         }
         binding.buttonQuitBook.setOnClickListener {
             val builder = AlertDialog.Builder(context)
-            builder.setTitle("确认删除")
-            builder.setMessage("你确认要删除这个账本吗？删除后将无法找回")
+            builder.setTitle("确认退出")
+            builder.setMessage("你确认要退出这个账本吗？退出后将无法撤销操作")
             builder.setPositiveButton("确定") { dialog, which ->
                 publicViewModel?.apply {
                     request(ShareCodeApi::class.java).quitBook(bookId)
