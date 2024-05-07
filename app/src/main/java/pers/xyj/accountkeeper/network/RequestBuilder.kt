@@ -28,7 +28,7 @@ class RequestBuilder(context: Context) {
             .writeTimeout(5, TimeUnit.SECONDS)
             .readTimeout(5, TimeUnit.SECONDS)
             .addInterceptor(HeaderInterceptor())
-//            .addInterceptor(RefreshInterceptor())
+            .addInterceptor(RefreshInterceptor())
             .build()
             .apply {
                 retrofitBuilder = Retrofit.Builder()

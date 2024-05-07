@@ -30,7 +30,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="50"
                 android:gravity="center"
-                android:text="分享账本"
+                android:text="账本共享"
                 android:textSize="30sp"
                 android:textStyle="bold" />
 

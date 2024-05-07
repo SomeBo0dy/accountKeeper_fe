@@ -77,6 +77,8 @@ class BookAdapter(val data: ArrayList<BookVo>) :
         holder.amount.text = String.format("%.2f", book.amount)
         if (book.createBy != userId) {
             holder.bookContainer.setBackgroundColor(Color.parseColor("#F3FEB0"))
+        }else{
+            holder.bookContainer.setBackgroundColor(Color.parseColor("#F0F8FA"))
         }
     }
 
