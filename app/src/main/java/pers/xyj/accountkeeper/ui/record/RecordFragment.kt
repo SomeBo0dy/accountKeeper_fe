@@ -54,7 +54,6 @@ class RecordFragment : BaseFragment<FragmentRecordBinding, BookViewModel>(
 
             override fun onCalendarSelect(calendar: Calendar?, isClick: Boolean) {
                 if (isClick){
-//                    LogUtil.e(Date(calendar!!.timeInMillis).toString())
                     viewModel!!.date.value = format.format(Date(calendar!!.timeInMillis))
                     timeInMillis = calendar!!.timeInMillis
                     binding.dateText.text = viewModel!!.date.value
@@ -89,8 +88,7 @@ class RecordFragment : BaseFragment<FragmentRecordBinding, BookViewModel>(
     }
 
     fun initRecordFromDB() {
-//        recordAdapter.notifyDataSetChanged()
-        recordList.removeAll(recordList)
+        recordList.clear()
         publicViewModel?.apply {
             request(RecordApi::class.java).getTopBookRecords(
                 Date(calendarView.selectedCalendar!!.timeInMillis),
@@ -136,6 +134,7 @@ class RecordFragment : BaseFragment<FragmentRecordBinding, BookViewModel>(
         bundle.putLong("recordId",record.id)
         bundle.putDouble("recordAmount",record.amount)
         bundle.putInt("typeId",record.tId)
+        bundle.putInt("isIncome",record.isIncome)
         bundle.putString("description",record.description)
         requireActivity().findNavController(R.id.app_navigation)
             .navigate(R.id.action_mainNavigationFragment_to_addRecordFragment, bundle)

@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import pers.xyj.accountkeeper.util.LogUtil
 
 /**
  * @author  :Setruth
@@ -63,7 +64,7 @@ class SPUtil(context: Context) {
 
     inline fun <reified T> toBeanList(list: List<Any>, books: ArrayList<T>) {
         for (item in list) {
-            var gson: Gson = GsonBuilder().setDateFormat("yyyy-MM-dd").create()
+            var gson: Gson = GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create()
             val toJson = gson.toJson(item)
             val entity: T = gson.fromJson(toJson, T::class.java)
             books.add(entity)

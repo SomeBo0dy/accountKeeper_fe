@@ -4,7 +4,9 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.text.Editable
 import android.view.View
+import android.widget.CheckBox
 import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -16,6 +18,7 @@ import pers.xyj.accountkeeper.databinding.FragmentAddRecordBinding
 import pers.xyj.accountkeeper.network.ApiResponse
 import pers.xyj.accountkeeper.network.api.RecordApi
 import pers.xyj.accountkeeper.network.api.TypeApi
+import pers.xyj.accountkeeper.repository.entity.Bill
 import pers.xyj.accountkeeper.repository.entity.Type
 import pers.xyj.accountkeeper.repository.model.AddRecordForm
 import pers.xyj.accountkeeper.repository.model.EditRecordForm
@@ -30,12 +33,18 @@ class AddRecordFragment : BaseFragment<FragmentAddRecordBinding, AddRecordViewMo
 ), TypeAdapter.OnItemClickListener {
     var isEdit: Boolean = false
     val typeList: ArrayList<Type> = ArrayList()
+    val incomeTypeList: ArrayList<Type> = ArrayList()
+    val outcomeTypeList: ArrayList<Type> = ArrayList()
     val typeAdapter: TypeAdapter = TypeAdapter(typeList)
     var bookId: Int = 0
     var typeId: Int = 0
     var timeInMillis: Long = 0
     var recordId: Long = 0L
-
+    lateinit var incomeCheckBox: CheckBox
+    lateinit var outcomeCheckBox: CheckBox
+    val isIncome by lazy {
+        MutableLiveData(false)
+    }
     override fun initFragment(
         binding: FragmentAddRecordBinding,
         viewModel: AddRecordViewModel?,
@@ -53,8 +62,48 @@ class AddRecordFragment : BaseFragment<FragmentAddRecordBinding, AddRecordViewMo
                 recordId = bundle.getLong("recordId")
                 viewModel!!.amount.value = bundle.getDouble("recordAmount").toString()
                 typeId = bundle.getInt("typeId")
+                var income = bundle.getInt("isIncome")
+                if (income == 1){
+                    isIncome.value = true
+                }
                 viewModel!!.description.value = bundle.getString("description")
             }
+        }
+        incomeCheckBox = binding.incomeCheckBox
+        outcomeCheckBox = binding.outcomeCheckBox
+        outcomeCheckBox.isChecked = true
+        incomeCheckBox.setOnClickListener {
+            incomeCheckBox.isChecked = true
+            outcomeCheckBox.isChecked = false
+            isIncome.value = true
+        }
+        outcomeCheckBox.setOnClickListener {
+            outcomeCheckBox.isChecked = true
+            incomeCheckBox.isChecked = false
+            isIncome.value = false
+        }
+        isIncome.observe(requireActivity()) {
+            LogUtil.e(isIncome.value.toString())
+            if (isIncome.value!!){
+                binding.typeTextLabel.text = "收入金额"
+                binding.typeCheckBoxLabel.text = "收入类型"
+                binding.descLabel.text = "收入描述"
+                binding.descInput.hint = "描述这笔收入..."
+                typeList.clear()
+                typeList.addAll(incomeTypeList)
+            }else{
+                binding.typeTextLabel.text = "支出金额"
+                binding.typeCheckBoxLabel.text = "支出类型"
+                binding.descLabel.text = "支出描述"
+                binding.descInput.hint = "描述这笔支出..."
+                typeList.clear()
+                typeList.addAll(outcomeTypeList)
+            }
+            if (typeList.size != 0){
+                typeList[0].isChecked = true
+
+            }
+            typeAdapter.notifyDataSetChanged()
         }
         binding.backButton.setOnClickListener {
             requireActivity().findNavController(R.id.app_navigation).navigateUp()
@@ -178,7 +227,7 @@ class AddRecordFragment : BaseFragment<FragmentAddRecordBinding, AddRecordViewMo
     }
 
     fun initTypeListFromDB() {
-        typeList.removeAll(typeList)
+        typeList.clear()
         publicViewModel?.apply {
             request(TypeApi::class.java).getTypes().getResponse {
                 it.collect {
@@ -188,13 +237,9 @@ class AddRecordFragment : BaseFragment<FragmentAddRecordBinding, AddRecordViewMo
                         is ApiResponse.Success -> {
                             var types = it.data?.data as ArrayList<Type>
                             spUtil.toBeanList(types, typeList)
-//                            LogUtil.e(typeList.toString())
-                            //将第一个类型设为默认类型
-                            if (typeId == 0) {
-                                typeList[0].isChecked = true
-                            } else {
-                                typeList[typeId - 1].isChecked = true
-                            }
+                            classifyTypeList(typeList)
+                            typeList.clear()
+                            typeList.addAll(outcomeTypeList)
                             withContext(Dispatchers.Main) {
                                 typeAdapter.notifyDataSetChanged()
                             }
@@ -204,7 +249,22 @@ class AddRecordFragment : BaseFragment<FragmentAddRecordBinding, AddRecordViewMo
             }
         }
     }
-
+    fun classifyTypeList(totalTypeList: ArrayList<Type>){
+        for (item: Type in totalTypeList){
+            if (item.id == typeId){
+                item.isChecked = true
+            }
+            if (item.isIncome == 1){
+                incomeTypeList.add(item)
+            }else{
+                outcomeTypeList.add(item)
+            }
+        }
+        if (typeId == 0){
+            incomeTypeList[0].isChecked = true
+            outcomeTypeList[0].isChecked = true
+        }
+    }
     override fun onItemClick(position: Int) {
 
     }

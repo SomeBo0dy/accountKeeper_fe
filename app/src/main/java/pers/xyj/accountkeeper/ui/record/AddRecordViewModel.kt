@@ -16,14 +16,4 @@ class AddRecordViewModel : ViewModel() {
     val description by lazy {
         MutableLiveData("")
     }
-//    var dataBindingVariable =
-//        object: ObservableField<String>(amount.value.toString()) {
-//            override fun get(): String? {
-//                return super.get()
-//            }
-//            override fun set(value: String?) {
-//                super.set(value)
-//                amount.value = (value?.toDoubleOrNull() ?: amount.value)
-//            }
-//        }
 }

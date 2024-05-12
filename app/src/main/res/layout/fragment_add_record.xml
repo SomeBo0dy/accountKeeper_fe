@@ -54,14 +54,51 @@
                 app:srcCompat="@drawable/save_button" />
         </LinearLayout>
 
+
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/textView8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
-            android:textSize="18sp"
-            android:text="支出金额" />
+            android:text="记录类型"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+            <CheckBox
+                android:id="@+id/outcome_check_box"
+                style="@style/select_flex_style"
+                android:tag="f2"
+                android:textSize="20sp"
+                android:text="支出" />
+            <CheckBox
+                android:id="@+id/income_check_box"
+                style="@style/select_flex_style"
+                android:tag="f1"
+                android:textSize="20sp"
+                android:text="收入" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider9"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            android:id="@+id/type_text_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:text="支出金额"
+            android:textSize="18sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -105,7 +142,7 @@
             android:background="?android:attr/listDivider" />
 
         <TextView
-            android:id="@+id/type_label"
+            android:id="@+id/type_checkBox_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -135,7 +172,15 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="?android:attr/listDivider" />
-
+        <TextView
+            android:id="@+id/desc_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="5dp"
+            android:textSize="18sp"
+            android:text="支出描述" />
         <EditText
             android:id="@+id/desc_input"
             android:layout_width="match_parent"

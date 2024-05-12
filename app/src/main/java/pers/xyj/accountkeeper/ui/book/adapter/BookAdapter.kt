@@ -33,6 +33,7 @@ class BookAdapter(val data: ArrayList<BookVo>) :
         var description: TextView = view.findViewById(R.id.description_text)
         var createTime: TextView = view.findViewById(R.id.create_time)
         var amount: TextView = view.findViewById(R.id.amount)
+        var amountLabel: TextView = view.findViewById(R.id.amount_label)
         var settingButton: Button = view.findViewById(R.id.setting_button)
         var reportButton: Button = view.findViewById(R.id.report_button)
     }
@@ -74,7 +75,16 @@ class BookAdapter(val data: ArrayList<BookVo>) :
         holder.description.text = book.description
         var format: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
         holder.createTime.text = format.format(book.createTime)
-        holder.amount.text = String.format("%.2f", book.amount)
+        var amountResult:Double = book.incomeAmount - book.outcomeAmount
+        if (amountResult >= 0){
+            holder.amountLabel.text = "账本盈余（元）："
+            holder.amount.text = String.format("%.2f", amountResult)
+        }else{
+            holder.amountLabel.text = "账本亏损（元）："
+            holder.amount.text = String.format("%.2f", -amountResult)
+            holder.amountLabel.setTextColor(Color.RED)
+            holder.amount.setTextColor(Color.RED)
+        }
         if (book.createBy != userId) {
             holder.bookContainer.setBackgroundColor(Color.parseColor("#F3FEB0"))
         }else{

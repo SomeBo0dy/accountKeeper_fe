@@ -4,6 +4,8 @@ import android.content.Context
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -20,7 +22,7 @@ import java.util.concurrent.TimeUnit
 
 class RequestBuilder(context: Context) {
     private var retrofitBuilder: Retrofit
-
+    private var gson: Gson = GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create()
     init {
         OkHttpClient.Builder()
             .cookieJar(PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(context)))
@@ -33,7 +35,7 @@ class RequestBuilder(context: Context) {
             .apply {
                 retrofitBuilder = Retrofit.Builder()
                     .baseUrl(RequestConfiguration.URL)
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(this)
                     .build()
             }
@@ -83,8 +85,8 @@ class RequestBuilder(context: Context) {
  *  TODO 网络请求配置
  */
 object RequestConfiguration {
-    const val URL = "http://jzkeeper.somebodycn.xyz:7964"
-//    const val URL = "http://10.0.2.2:7964"
+//    const val URL = "http://jzkeeper.somebodycn.xyz:7964"
+    const val URL = "http://10.0.2.2:7964"
 }
 
 /**

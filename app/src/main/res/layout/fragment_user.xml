@@ -147,77 +147,78 @@
                     android:gravity="right|center_vertical"
                     android:src="@drawable/right_arch" />
             </LinearLayout>
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                android:elevation="10dp"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:paddingLeft="10dp"-->
+<!--                android:paddingTop="10dp"-->
+<!--                android:paddingRight="10dp"-->
+<!--                android:paddingBottom="10dp">-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/import_image"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:scaleType="fitEnd"-->
+<!--                    android:src="@drawable/import_book" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/import_text"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_marginLeft="10dp"-->
+<!--                    android:gravity="left|center_vertical"-->
+<!--                    android:text="导入账单" />-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/import_right_arch"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_marginLeft="250dp"-->
+<!--                    android:gravity="right|center_vertical"-->
+<!--                    android:src="@drawable/right_arch" />-->
+<!--            </LinearLayout>-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                android:elevation="10dp"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:paddingLeft="10dp"-->
+<!--                android:paddingTop="10dp"-->
+<!--                android:paddingRight="10dp"-->
+<!--                android:paddingBottom="10dp">-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/output_image"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:scaleType="fitEnd"-->
+<!--                    android:src="@drawable/output_arch" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/output_text"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_marginLeft="10dp"-->
+<!--                    android:gravity="left|center_vertical"-->
+<!--                    android:text="导出账单" />-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/outport_right_arch"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_marginLeft="250dp"-->
+<!--                    android:gravity="right|center_vertical"-->
+<!--                    android:src="@drawable/right_arch" />-->
+<!--            </LinearLayout>-->
+
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:elevation="10dp"
-                android:orientation="horizontal"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:paddingRight="10dp"
-                android:paddingBottom="10dp">
-
-                <ImageView
-                    android:id="@+id/import_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:scaleType="fitEnd"
-                    android:src="@drawable/import_book" />
-
-                <TextView
-                    android:id="@+id/import_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:gravity="left|center_vertical"
-                    android:text="导入账单" />
-
-                <ImageView
-                    android:id="@+id/import_right_arch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="250dp"
-                    android:gravity="right|center_vertical"
-                    android:src="@drawable/right_arch" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:elevation="10dp"
-                android:orientation="horizontal"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:paddingRight="10dp"
-                android:paddingBottom="10dp">
-
-                <ImageView
-                    android:id="@+id/output_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:scaleType="fitEnd"
-                    android:src="@drawable/output_arch" />
-
-                <TextView
-                    android:id="@+id/output_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:gravity="left|center_vertical"
-                    android:text="导出账单" />
-
-                <ImageView
-                    android:id="@+id/outport_right_arch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="250dp"
-                    android:gravity="right|center_vertical"
-                    android:src="@drawable/right_arch" />
-            </LinearLayout>
-
-            <LinearLayout
+                android:id="@+id/bill_reminder_button"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"

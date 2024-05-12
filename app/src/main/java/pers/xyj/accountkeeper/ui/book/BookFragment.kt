@@ -40,7 +40,7 @@ class BookFragment : BaseFragment<FragmentBookBinding, BookRecycleViewModel>(
     }
 
     fun initBookFromDB() {
-        bookList.removeAll(bookList)
+        bookList.clear()
         publicViewModel?.apply {
             request(BookApi::class.java).getBooks(1, 100).getResponse {
                 it.collect {
@@ -55,7 +55,6 @@ class BookFragment : BaseFragment<FragmentBookBinding, BookRecycleViewModel>(
                             withContext(Dispatchers.Main) {
                                 bookAdapter.notifyDataSetChanged()
                             }
-                            LogUtil.e(bookList.toString())
                         }
                     }
                 }

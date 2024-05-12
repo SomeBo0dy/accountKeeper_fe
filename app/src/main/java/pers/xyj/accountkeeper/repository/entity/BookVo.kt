@@ -18,5 +18,7 @@ data class BookVo(
 
     var memberCount: Int,
 
-    var amount: Double,
+    var incomeAmount: Double,
+
+    var outcomeAmount: Double,
 ) : Serializable

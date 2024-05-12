@@ -111,7 +111,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginFragmentViewModel>
             override fun onTick(millisUntilFinished: Long) {
                 codeButton.text = "${millisUntilFinished / 1000} 秒后可重新发送"
             }
-
             override fun onFinish() {
                 codeButton.isEnabled = true
                 codeButton.text = "获取验证码"

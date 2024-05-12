@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import pers.xyj.accountkeeper.R
 import pers.xyj.accountkeeper.repository.model.TypeNameAndCountVo
 
-class StatisticItemAdapter(val data: ArrayList<TypeNameAndCountVo>) :
+class StatisticItemAdapter(val data: ArrayList<TypeNameAndCountVo>,val isIncome :Boolean) :
     RecyclerView.Adapter<StatisticItemAdapter.StatisticItemViewHolder>() {
 
     private lateinit var mListener: OnItemClickListener
@@ -17,6 +17,7 @@ class StatisticItemAdapter(val data: ArrayList<TypeNameAndCountVo>) :
         var itemName: TextView = view.findViewById(R.id.statistic_name)
         var itemCount: TextView = view.findViewById(R.id.statistic_count)
         var itemAmount: TextView = view.findViewById(R.id.statistic_amount)
+        var recordTypeText: TextView = view.findViewById(R.id.record_type_text)
 //        var percentage: TextView = view.findViewById(R.id.statistic_percentage)
 
     }
@@ -44,6 +45,11 @@ class StatisticItemAdapter(val data: ArrayList<TypeNameAndCountVo>) :
         val typeNameAndCount: TypeNameAndCountVo = data[position]
         holder.itemName.text = typeNameAndCount.typeName
         holder.itemCount.text = typeNameAndCount.count.toString()
+        if (isIncome){
+            holder.recordTypeText.text = "收入"
+        }else{
+            holder.recordTypeText.text = "支出"
+        }
         holder.itemAmount.text = String.format("%.2f", typeNameAndCount.amount)
 //        holder.percentage.text = String.format("%.1f", typeNameAndCount.amount/totalAmount * 100)
     }

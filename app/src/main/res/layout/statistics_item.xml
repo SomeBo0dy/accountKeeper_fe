@@ -21,12 +21,12 @@
             android:text="日常" />
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/record_type_text"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:text="消费" />
+            android:text="" />
 
         <TextView
             android:id="@+id/statistic_count"

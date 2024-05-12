@@ -1,5 +1,6 @@
 package pers.xyj.accountkeeper.ui.record.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,7 @@ class RecordAdapter(val data: ArrayList<Record>) :
         var typeImage: ImageView = view.findViewById(R.id.typeImage)
         var typeText: TextView = view.findViewById(R.id.typeText)
         var amount: TextView = view.findViewById(R.id.record_amount)
+        var moneyLabel: TextView = view.findViewById(R.id.money_label)
     }
 
     interface OnItemClickListener {
@@ -48,6 +50,10 @@ class RecordAdapter(val data: ArrayList<Record>) :
             holder.typeText.text = record.typeName
         }else{
             holder.typeText.text = description
+        }
+        if (record.isIncome == 1){
+            holder.amount.setTextColor(Color.parseColor("#C0E688"))
+            holder.moneyLabel.setTextColor(Color.parseColor("#C0E688"))
         }
         holder.amount.text = String.format("%.2f", record.amount)
     }

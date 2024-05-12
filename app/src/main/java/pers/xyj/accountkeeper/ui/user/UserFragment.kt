@@ -45,6 +45,10 @@ class UserFragment : BaseFragment<FragmentUserBinding, ViewModel>(
             requireActivity().findNavController(R.id.app_navigation)
                 .navigate(R.id.action_mainNavigationFragment_to_joinBookFragment)
         }
+        binding.billReminderButton.setOnClickListener {
+            requireActivity().findNavController(R.id.app_navigation)
+                .navigate(R.id.action_mainNavigationFragment_to_billFragment)
+        }
     }
     override fun onResume() {
         super.onResume()

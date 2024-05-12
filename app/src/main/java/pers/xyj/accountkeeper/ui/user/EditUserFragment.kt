@@ -184,10 +184,8 @@ class EditUserFragment : BaseFragment<FragmentEditUserBinding, EditUserViewModel
         publicViewModel!!.publicEditString.observe(requireActivity()) {
             var publicEditStringType = publicViewModel!!.publicEditStringType.value
             if (publicEditStringType.equals("name")) {
-//                viewModel!!.nickname.value = it
                 binding.nameText.text = it
             } else if (publicEditStringType.equals("introduction")) {
-//                viewModel!!.introduction.value = it
                 binding.introduction.text = it
             }
         }
