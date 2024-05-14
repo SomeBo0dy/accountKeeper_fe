@@ -49,6 +49,10 @@ class UserFragment : BaseFragment<FragmentUserBinding, ViewModel>(
             requireActivity().findNavController(R.id.app_navigation)
                 .navigate(R.id.action_mainNavigationFragment_to_billFragment)
         }
+        binding.smartKeepButton.setOnClickListener {
+            requireActivity().findNavController(R.id.app_navigation)
+                .navigate(R.id.action_mainNavigationFragment_to_smartKeepFragment2)
+        }
     }
     override fun onResume() {
         super.onResume()

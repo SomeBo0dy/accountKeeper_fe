@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
 import android.widget.TimePicker
+import android.widget.Toast
 import androidx.navigation.findNavController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -59,53 +60,59 @@ class AddBillFragment  : BaseFragment<FragmentAddBillBinding, AddBillViewModel>(
             requireActivity().findNavController(R.id.app_navigation).navigateUp()
         }
         binding.saveBillButton.setOnClickListener {
-            publicViewModel?.apply {
-                if (!isEdit) {
-                    request(BillApi::class.java).addBill(
-                        AddBillForm(
-                            viewModel!!.billName.value!!,
-                            format.parse(date + " " + timePicker.hour + ":" + timePicker.minute + ":00")
+            if (viewModel!!.billName.value == "") {
+                Toast.makeText(requireContext(), "账单名称不能为空", Toast.LENGTH_SHORT)
+                    .show()
+            }else{
+                publicViewModel?.apply {
+                    if (!isEdit) {
+                        request(BillApi::class.java).addBill(
+                            AddBillForm(
+                                viewModel!!.billName.value!!,
+                                format.parse(date + " " + timePicker.hour + ":" + timePicker.minute + ":00")
                             )
-                    ).getResponse {
-                        it.collect {
-                            when (it) {
-                                is ApiResponse.Error -> LogUtil.e("${it.errMsg} ${it.errMsg}")
-                                ApiResponse.Loading -> LogUtil.e("Loading")
-                                is ApiResponse.Success -> {
-                                    LogUtil.e("${it.data.toString()}")
-                                    withContext(Dispatchers.Main) {
-                                        requireActivity().findNavController(R.id.app_navigation)
-                                            .navigateUp()
+                        ).getResponse {
+                            it.collect {
+                                when (it) {
+                                    is ApiResponse.Error -> LogUtil.e("${it.errMsg} ${it.errMsg}")
+                                    ApiResponse.Loading -> LogUtil.e("Loading")
+                                    is ApiResponse.Success -> {
+                                        LogUtil.e("${it.data.toString()}")
+                                        withContext(Dispatchers.Main) {
+                                            requireActivity().findNavController(R.id.app_navigation)
+                                                .navigateUp()
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        request(BillApi::class.java).editBill(
+                            EditBillForm(
+                                billId,
+                                viewModel!!.billName.value!!,
+                                format.parse(date + " " + timePicker.hour + ":" + timePicker.minute + ":00")
+                            )
+                        ).getResponse {
+                            it.collect {
+                                when (it) {
+                                    is ApiResponse.Error -> LogUtil.e("${it.errMsg} ${it.errMsg}")
+                                    ApiResponse.Loading -> LogUtil.e("Loading")
+                                    is ApiResponse.Success -> {
+                                        LogUtil.e("${it.data.toString()}")
+                                        withContext(Dispatchers.Main) {
+                                            requireActivity().findNavController(R.id.app_navigation)
+                                                .navigateUp()
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                } else {
-                    request(BillApi::class.java).editBill(
-                        EditBillForm(
-                            billId,
-                            viewModel!!.billName.value!!,
-                            format.parse(date + " " + timePicker.hour + ":" + timePicker.minute + ":00")
-                        )
-                    ).getResponse {
-                        it.collect {
-                            when (it) {
-                                is ApiResponse.Error -> LogUtil.e("${it.errMsg} ${it.errMsg}")
-                                ApiResponse.Loading -> LogUtil.e("Loading")
-                                is ApiResponse.Success -> {
-                                    LogUtil.e("${it.data.toString()}")
-                                    withContext(Dispatchers.Main) {
-                                        requireActivity().findNavController(R.id.app_navigation)
-                                            .navigateUp()
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
 
+                }
             }
+
         }
         binding.deleteBillButton.setOnClickListener {
             val builder = AlertDialog.Builder(context)

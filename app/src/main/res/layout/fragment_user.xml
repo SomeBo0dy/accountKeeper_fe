@@ -254,6 +254,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/smart_keep_button"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"

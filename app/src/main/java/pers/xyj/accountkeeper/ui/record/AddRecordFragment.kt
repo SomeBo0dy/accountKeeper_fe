@@ -2,12 +2,13 @@ package pers.xyj.accountkeeper.ui.record
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.text.Editable
 import android.view.View
 import android.widget.CheckBox
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +19,6 @@ import pers.xyj.accountkeeper.databinding.FragmentAddRecordBinding
 import pers.xyj.accountkeeper.network.ApiResponse
 import pers.xyj.accountkeeper.network.api.RecordApi
 import pers.xyj.accountkeeper.network.api.TypeApi
-import pers.xyj.accountkeeper.repository.entity.Bill
 import pers.xyj.accountkeeper.repository.entity.Type
 import pers.xyj.accountkeeper.repository.model.AddRecordForm
 import pers.xyj.accountkeeper.repository.model.EditRecordForm
@@ -32,6 +32,7 @@ class AddRecordFragment : BaseFragment<FragmentAddRecordBinding, AddRecordViewMo
     true
 ), TypeAdapter.OnItemClickListener {
     var isEdit: Boolean = false
+    var isSmartAdded: Boolean = false
     val typeList: ArrayList<Type> = ArrayList()
     val incomeTypeList: ArrayList<Type> = ArrayList()
     val outcomeTypeList: ArrayList<Type> = ArrayList()
@@ -45,6 +46,7 @@ class AddRecordFragment : BaseFragment<FragmentAddRecordBinding, AddRecordViewMo
     val isIncome by lazy {
         MutableLiveData(false)
     }
+
     override fun initFragment(
         binding: FragmentAddRecordBinding,
         viewModel: AddRecordViewModel?,
@@ -52,21 +54,30 @@ class AddRecordFragment : BaseFragment<FragmentAddRecordBinding, AddRecordViewMo
     ) {
         val bundle = arguments
         if (bundle != null) {
-            isEdit = bundle.getBoolean("isEdit")
-            if (!isEdit) {
+            if (bundle.getBoolean("isSmartAdded") != null) {
+                isSmartAdded = bundle.getBoolean("isSmartAdded")
+                binding.appName.text = "编辑识别记录"
                 bookId = bundle.getInt("bookId")
+                viewModel!!.amount.value = bundle.getDouble("amount").toString()
+                viewModel!!.description.value = bundle.getString("description")!!
                 timeInMillis = bundle.getLong("timeInMillis")
             } else {
-                binding.deleteRecordButton.visibility = View.VISIBLE
-                binding.appName.text = "编辑记录"
-                recordId = bundle.getLong("recordId")
-                viewModel!!.amount.value = bundle.getDouble("recordAmount").toString()
-                typeId = bundle.getInt("typeId")
-                var income = bundle.getInt("isIncome")
-                if (income == 1){
-                    isIncome.value = true
+                isEdit = bundle.getBoolean("isEdit")
+                if (!isEdit) {
+                    bookId = bundle.getInt("bookId")
+                    timeInMillis = bundle.getLong("timeInMillis")
+                } else {
+                    binding.deleteRecordButton.visibility = View.VISIBLE
+                    binding.appName.text = "编辑记录"
+                    recordId = bundle.getLong("recordId")
+                    viewModel!!.amount.value = bundle.getDouble("recordAmount").toString()
+                    typeId = bundle.getInt("typeId")
+                    var income = bundle.getInt("isIncome")
+                    if (income == 1) {
+                        isIncome.value = true
+                    }
+                    viewModel!!.description.value = bundle.getString("description")
                 }
-                viewModel!!.description.value = bundle.getString("description")
             }
         }
         incomeCheckBox = binding.incomeCheckBox
@@ -83,15 +94,14 @@ class AddRecordFragment : BaseFragment<FragmentAddRecordBinding, AddRecordViewMo
             isIncome.value = false
         }
         isIncome.observe(requireActivity()) {
-            LogUtil.e(isIncome.value.toString())
-            if (isIncome.value!!){
+            if (isIncome.value!!) {
                 binding.typeTextLabel.text = "收入金额"
                 binding.typeCheckBoxLabel.text = "收入类型"
                 binding.descLabel.text = "收入描述"
                 binding.descInput.hint = "描述这笔收入..."
                 typeList.clear()
                 typeList.addAll(incomeTypeList)
-            }else{
+            } else {
                 binding.typeTextLabel.text = "支出金额"
                 binding.typeCheckBoxLabel.text = "支出类型"
                 binding.descLabel.text = "支出描述"
@@ -99,7 +109,7 @@ class AddRecordFragment : BaseFragment<FragmentAddRecordBinding, AddRecordViewMo
                 typeList.clear()
                 typeList.addAll(outcomeTypeList)
             }
-            if (typeList.size != 0){
+            if (typeList.size != 0) {
                 typeList[0].isChecked = true
 
             }
@@ -148,12 +158,6 @@ class AddRecordFragment : BaseFragment<FragmentAddRecordBinding, AddRecordViewMo
                     text.clear()
                 }
             }
-//            else{
-//                var amount = text.toString()
-//                if (amount == ""){
-//                    text = Editable.Factory.getInstance().newEditable("0.0")
-//                }
-//            }
         }
         binding.clearText.setOnClickListener {
             binding.amountEditText.text.clear()
@@ -188,8 +192,13 @@ class AddRecordFragment : BaseFragment<FragmentAddRecordBinding, AddRecordViewMo
                                         is ApiResponse.Success -> {
                                             LogUtil.e("${it.data.toString()}")
                                             withContext(Dispatchers.Main) {
-                                                requireActivity().findNavController(R.id.app_navigation)
-                                                    .navigateUp()
+                                                if (!isSmartAdded) {
+                                                    requireActivity().findNavController(R.id.app_navigation)
+                                                        .navigateUp()
+                                                } else {
+                                                    findNavController().popBackStack(R.id.smartKeepResultFragment, false
+                                                    )
+                                                }
                                             }
                                         }
                                     }
@@ -211,8 +220,10 @@ class AddRecordFragment : BaseFragment<FragmentAddRecordBinding, AddRecordViewMo
                                         is ApiResponse.Success -> {
                                             LogUtil.e("${it.data.toString()}")
                                             withContext(Dispatchers.Main) {
+
                                                 requireActivity().findNavController(R.id.app_navigation)
                                                     .navigateUp()
+
                                             }
                                         }
                                     }
@@ -249,22 +260,24 @@ class AddRecordFragment : BaseFragment<FragmentAddRecordBinding, AddRecordViewMo
             }
         }
     }
-    fun classifyTypeList(totalTypeList: ArrayList<Type>){
-        for (item: Type in totalTypeList){
-            if (item.id == typeId){
+
+    fun classifyTypeList(totalTypeList: ArrayList<Type>) {
+        for (item: Type in totalTypeList) {
+            if (item.id == typeId) {
                 item.isChecked = true
             }
-            if (item.isIncome == 1){
+            if (item.isIncome == 1) {
                 incomeTypeList.add(item)
-            }else{
+            } else {
                 outcomeTypeList.add(item)
             }
         }
-        if (typeId == 0){
+        if (typeId == 0) {
             incomeTypeList[0].isChecked = true
             outcomeTypeList[0].isChecked = true
         }
     }
+
     override fun onItemClick(position: Int) {
 
     }

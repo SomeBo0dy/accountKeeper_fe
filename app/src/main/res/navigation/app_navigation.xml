@@ -39,6 +39,9 @@
         <action
             android:id="@+id/action_mainNavigationFragment_to_billFragment"
             app:destination="@id/billFragment" />
+        <action
+            android:id="@+id/action_mainNavigationFragment_to_smartKeepFragment2"
+            app:destination="@id/smartKeepFragment" />
     </fragment>
     <fragment
         android:id="@+id/addBookFragment"
@@ -95,4 +98,30 @@
         android:name="pers.xyj.accountkeeper.ui.bill.AddBillFragment"
         android:label="fragment_add_bill"
         tools:layout="@layout/fragment_add_bill" />
+    <fragment
+        android:id="@+id/smartKeepFragment"
+        android:name="pers.xyj.accountkeeper.ui.smartKeep.SmartKeepFragment"
+        android:label="fragment_smart_keep"
+        tools:layout="@layout/fragment_smart_keep" >
+        <action
+            android:id="@+id/action_smartKeepFragment_to_smartKeepResultFragment"
+            app:destination="@id/smartKeepResultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/smartKeepResultFragment"
+        android:name="pers.xyj.accountkeeper.ui.smartKeep.SmartResultFragment"
+        android:label="fragment_smart_result"
+        tools:layout="@layout/fragment_smart_result" >
+        <action
+            android:id="@+id/action_smartKeepResultFragment_to_smartEditFragment"
+            app:destination="@id/smartEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/smartEditFragment"
+        android:name="pers.xyj.accountkeeper.ui.smartKeep.SmartEditFragment"
+        android:label="SmartEditFragment" >
+        <action
+            android:id="@+id/action_smartEditFragment_to_addRecordFragment"
+            app:destination="@id/addRecordFragment" />
+    </fragment>
 </navigation>

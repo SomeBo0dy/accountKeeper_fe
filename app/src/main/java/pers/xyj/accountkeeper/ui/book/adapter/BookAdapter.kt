@@ -78,6 +78,8 @@ class BookAdapter(val data: ArrayList<BookVo>) :
         var amountResult:Double = book.incomeAmount - book.outcomeAmount
         if (amountResult >= 0){
             holder.amountLabel.text = "账本盈余（元）："
+            holder.amountLabel.setTextColor(Color.parseColor("#0EA06F"))
+            holder.amount.setTextColor(Color.parseColor("#0EA06F"))
             holder.amount.text = String.format("%.2f", amountResult)
         }else{
             holder.amountLabel.text = "账本亏损（元）："

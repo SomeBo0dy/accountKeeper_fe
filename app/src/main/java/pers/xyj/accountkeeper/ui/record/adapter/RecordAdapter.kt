@@ -52,8 +52,11 @@ class RecordAdapter(val data: ArrayList<Record>) :
             holder.typeText.text = description
         }
         if (record.isIncome == 1){
-            holder.amount.setTextColor(Color.parseColor("#C0E688"))
-            holder.moneyLabel.setTextColor(Color.parseColor("#C0E688"))
+            holder.amount.setTextColor(Color.parseColor("#0EA06F"))
+            holder.moneyLabel.setTextColor(Color.parseColor("#0EA06F"))
+        }else{
+            holder.amount.setTextColor(Color.RED)
+            holder.moneyLabel.setTextColor(Color.RED)
         }
         holder.amount.text = String.format("%.2f", record.amount)
     }
