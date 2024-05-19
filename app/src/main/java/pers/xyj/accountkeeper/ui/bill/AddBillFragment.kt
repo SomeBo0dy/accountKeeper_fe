@@ -26,6 +26,9 @@ class AddBillFragment  : BaseFragment<FragmentAddBillBinding, AddBillViewModel>(
     AddBillViewModel::class.java,
     true
 ){
+    val CALENDER_URL: String = "content://com.android.calendar/calendars"
+    val CALENDER_EVENT_URL: String = "content://com.android.calendar/events"
+    val CALENDER_REMINDER_URL : String = "content://com.android.calendar/reminders"
     lateinit var timePicker: TimePicker
     var isEdit: Boolean = false
     var billId: Int = 0
@@ -47,6 +50,7 @@ class AddBillFragment  : BaseFragment<FragmentAddBillBinding, AddBillViewModel>(
             date = bundle.getString("date")!!
             if (isEdit) {
                 binding.deleteBillButton.visibility = View.VISIBLE
+                binding.insertCalendarButton.visibility = View.VISIBLE
                 binding.appName.text = "编辑账单提醒"
                 billId = bundle.getInt("billId")
                 hour = bundle.getInt("hour")
@@ -144,6 +148,9 @@ class AddBillFragment  : BaseFragment<FragmentAddBillBinding, AddBillViewModel>(
             }
             val dialog = builder.create()
             dialog.show()
+        }
+        binding.insertCalendarButton.setOnClickListener {
+
         }
     }
 

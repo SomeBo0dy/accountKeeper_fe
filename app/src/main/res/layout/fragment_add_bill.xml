@@ -88,13 +88,23 @@
                 android:layout_height="wrap_content"
                 android:timePickerMode="spinner"
                 />
-
+            <Button
+                android:id="@+id/insert_calendar_button"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="加入本机日历日程"
+                android:textColor="#009688"
+                android:textSize="30sp"
+                android:visibility="gone"
+                android:textStyle="bold" />
             <Button
                 android:id="@+id/delete_bill_button"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="10dp"
                 android:text="删  除"
                 android:textColor="#FB725A"
                 android:textSize="40sp"
