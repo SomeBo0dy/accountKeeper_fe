@@ -1,5 +1,7 @@
 package pers.xyj.accountkeeper.ui.type.adapter
 
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -51,7 +53,9 @@ class TypeAdapter(val data: ArrayList<Type>) :
                         item.isChecked = false
                     }
                     type.isChecked = true
-                    notifyDataSetChanged()
+                    Handler(Looper.getMainLooper()).post{
+                        notifyDataSetChanged()
+                    }
                 }
             }
         }

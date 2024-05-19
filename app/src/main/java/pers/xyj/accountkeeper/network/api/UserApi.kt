@@ -3,10 +3,12 @@ package pers.xyj.accountkeeper.network.api
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import pers.xyj.accountkeeper.network.response.MyResponse
+import pers.xyj.accountkeeper.repository.entity.Type
 import pers.xyj.accountkeeper.repository.model.EditUserForm
 import pers.xyj.accountkeeper.repository.model.UserInfo
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.PUT
 import retrofit2.http.Part
@@ -24,4 +26,6 @@ interface UserApi {
     fun editUserInfoString(
         @Body editUserForm: EditUserForm
     ): Call<MyResponse<UserInfo>>
+    @GET("/users/checkIn")
+    fun getUserCheckInCount(): Call<MyResponse<Int>>
 }

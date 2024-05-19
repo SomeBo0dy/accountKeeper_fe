@@ -2,8 +2,12 @@ package pers.xyj.accountkeeper.ui.record
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
+import android.widget.Button
 import android.widget.CheckBox
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavOptions
@@ -37,64 +41,50 @@ class AddRecordFragment : BaseFragment<FragmentAddRecordBinding, AddRecordViewMo
     val incomeTypeList: ArrayList<Type> = ArrayList()
     val outcomeTypeList: ArrayList<Type> = ArrayList()
     val typeAdapter: TypeAdapter = TypeAdapter(typeList)
+
     var bookId: Int = 0
-    var typeId: Int = 0
+    val typeId by lazy {
+        MutableLiveData(0)
+    }
     var timeInMillis: Long = 0
     var recordId: Long = 0L
+
     lateinit var incomeCheckBox: CheckBox
     lateinit var outcomeCheckBox: CheckBox
+
+    lateinit var amountEditText: TextView
+    lateinit var appName: TextView
+    lateinit var deleteRecordButton: Button
     val isIncome by lazy {
         MutableLiveData(false)
     }
-
+    lateinit var bundle: Bundle
     override fun initFragment(
         binding: FragmentAddRecordBinding,
         viewModel: AddRecordViewModel?,
         savedInstanceState: Bundle?
     ) {
-        val bundle = arguments
-        if (bundle != null) {
-            if (bundle.getBoolean("isSmartAdded") != null) {
-                isSmartAdded = bundle.getBoolean("isSmartAdded")
-                binding.appName.text = "编辑识别记录"
-                bookId = bundle.getInt("bookId")
-                viewModel!!.amount.value = bundle.getDouble("amount").toString()
-                viewModel!!.description.value = bundle.getString("description")!!
-                timeInMillis = bundle.getLong("timeInMillis")
-            } else {
-                isEdit = bundle.getBoolean("isEdit")
-                if (!isEdit) {
-                    bookId = bundle.getInt("bookId")
-                    timeInMillis = bundle.getLong("timeInMillis")
-                } else {
-                    binding.deleteRecordButton.visibility = View.VISIBLE
-                    binding.appName.text = "编辑记录"
-                    recordId = bundle.getLong("recordId")
-                    viewModel!!.amount.value = bundle.getDouble("recordAmount").toString()
-                    typeId = bundle.getInt("typeId")
-                    var income = bundle.getInt("isIncome")
-                    if (income == 1) {
-                        isIncome.value = true
-                    }
-                    viewModel!!.description.value = bundle.getString("description")
-                }
-            }
-        }
+        initTypeListFromDB()
+        bundle = requireArguments()
+        appName = binding.appName
+        amountEditText = binding.amountEditText
+        deleteRecordButton = binding.deleteRecordButton
         incomeCheckBox = binding.incomeCheckBox
         outcomeCheckBox = binding.outcomeCheckBox
-        outcomeCheckBox.isChecked = true
         incomeCheckBox.setOnClickListener {
-            incomeCheckBox.isChecked = true
-            outcomeCheckBox.isChecked = false
             isIncome.value = true
+            typeAdapter.notifyDataSetChanged()
+
         }
         outcomeCheckBox.setOnClickListener {
-            outcomeCheckBox.isChecked = true
-            incomeCheckBox.isChecked = false
             isIncome.value = false
+            typeAdapter.notifyDataSetChanged()
+
         }
         isIncome.observe(requireActivity()) {
             if (isIncome.value!!) {
+                incomeCheckBox.isChecked = true
+                outcomeCheckBox.isChecked = false
                 binding.typeTextLabel.text = "收入金额"
                 binding.typeCheckBoxLabel.text = "收入类型"
                 binding.descLabel.text = "收入描述"
@@ -102,6 +92,8 @@ class AddRecordFragment : BaseFragment<FragmentAddRecordBinding, AddRecordViewMo
                 typeList.clear()
                 typeList.addAll(incomeTypeList)
             } else {
+                outcomeCheckBox.isChecked = true
+                incomeCheckBox.isChecked = false
                 binding.typeTextLabel.text = "支出金额"
                 binding.typeCheckBoxLabel.text = "支出类型"
                 binding.descLabel.text = "支出描述"
@@ -109,11 +101,31 @@ class AddRecordFragment : BaseFragment<FragmentAddRecordBinding, AddRecordViewMo
                 typeList.clear()
                 typeList.addAll(outcomeTypeList)
             }
+            var flag = true
             if (typeList.size != 0) {
-                typeList[0].isChecked = true
-
+                for (item in typeList){
+                    if (item.isChecked){
+                        flag = false
+                        break
+                    }
+                }
+                if (flag){
+                    typeId.value = typeList[0].id
+                }
             }
             typeAdapter.notifyDataSetChanged()
+        }
+        typeId.observe(requireActivity()){
+            for (item: Type in typeList) {
+                if (item.id == typeId.value) {
+                    item.isChecked = true
+                }else{
+                    item.isChecked = false
+                }
+            }
+            Handler(Looper.getMainLooper()).post{
+                typeAdapter.notifyDataSetChanged()
+            }
         }
         binding.backButton.setOnClickListener {
             requireActivity().findNavController(R.id.app_navigation).navigateUp()
@@ -171,7 +183,7 @@ class AddRecordFragment : BaseFragment<FragmentAddRecordBinding, AddRecordViewMo
             binding.saveRecordButton.setOnClickListener {
                 var toDoubleOrNull = binding.amountEditText.text.toString().toDoubleOrNull()
                 if (toDoubleOrNull == null) {
-                    Toast.makeText(requireContext(), "请输入支出金额", Toast.LENGTH_SHORT)
+                    Toast.makeText(requireContext(), "请输入金额", Toast.LENGTH_SHORT)
                         .show()
                 } else {
                     publicViewModel?.apply {
@@ -196,7 +208,8 @@ class AddRecordFragment : BaseFragment<FragmentAddRecordBinding, AddRecordViewMo
                                                     requireActivity().findNavController(R.id.app_navigation)
                                                         .navigateUp()
                                                 } else {
-                                                    findNavController().popBackStack(R.id.smartKeepResultFragment, false
+                                                    findNavController().popBackStack(
+                                                        R.id.smartKeepResultFragment, false
                                                     )
                                                 }
                                             }
@@ -235,6 +248,38 @@ class AddRecordFragment : BaseFragment<FragmentAddRecordBinding, AddRecordViewMo
                 }
             }
         }
+        if (bundle != null) {
+            var isSmart = bundle.getBoolean("isSmartAdded")
+            if (isSmart) {
+                isIncome.value = false
+                isSmartAdded = bundle.getBoolean("isSmartAdded")
+                bookId = bundle.getInt("bookId")
+                timeInMillis = bundle.getLong("timeInMillis")
+                appName.text = "编辑识别记录"
+                viewModel!!.amount.value = bundle.getDouble("amount").toString()
+                viewModel!!.description.value = bundle.getString("description")
+            } else {
+                isEdit = bundle.getBoolean("isEdit")
+                if (!isEdit) {
+                    bookId = bundle.getInt("bookId")
+                    timeInMillis = bundle.getLong("timeInMillis")
+                    isIncome.value = false
+                } else {
+                    recordId = bundle.getLong("recordId")
+                    typeId.value = bundle.getInt("typeId")
+                    var income = bundle.getInt("isIncome")
+                    if (income == 1) {
+                        isIncome.value = true
+                    } else {
+                        isIncome.value = false
+                    }
+                    deleteRecordButton.visibility = View.VISIBLE
+                    appName.text = "编辑记录"
+                    viewModel!!.amount.value = bundle.getDouble("recordAmount").toString()
+                    viewModel!!.description.value = bundle.getString("description")
+                }
+            }
+        }
     }
 
     fun initTypeListFromDB() {
@@ -249,9 +294,12 @@ class AddRecordFragment : BaseFragment<FragmentAddRecordBinding, AddRecordViewMo
                             var types = it.data?.data as ArrayList<Type>
                             spUtil.toBeanList(types, typeList)
                             classifyTypeList(typeList)
-                            typeList.clear()
-                            typeList.addAll(outcomeTypeList)
                             withContext(Dispatchers.Main) {
+                                if (bundle.getInt("isIncome") == 1){
+                                    isIncome.value = true
+                                }else{
+                                    isIncome.value = false
+                                }
                                 typeAdapter.notifyDataSetChanged()
                             }
                         }
@@ -263,8 +311,10 @@ class AddRecordFragment : BaseFragment<FragmentAddRecordBinding, AddRecordViewMo
 
     fun classifyTypeList(totalTypeList: ArrayList<Type>) {
         for (item: Type in totalTypeList) {
-            if (item.id == typeId) {
+            if (item.id == typeId.value) {
                 item.isChecked = true
+            }else{
+                item.isChecked = false
             }
             if (item.isIncome == 1) {
                 incomeTypeList.add(item)
@@ -272,19 +322,13 @@ class AddRecordFragment : BaseFragment<FragmentAddRecordBinding, AddRecordViewMo
                 outcomeTypeList.add(item)
             }
         }
-        if (typeId == 0) {
-            incomeTypeList[0].isChecked = true
+        if (typeId.value == 0) {
             outcomeTypeList[0].isChecked = true
         }
     }
 
     override fun onItemClick(position: Int) {
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-        initTypeListFromDB()
+        typeAdapter.notifyDataSetChanged()
     }
 
     fun getSelectedType(typeList: ArrayList<Type>): Int {
