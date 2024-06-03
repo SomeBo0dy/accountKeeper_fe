@@ -8,4 +8,5 @@ data class Record(
     var typeName: String = "",
     var imgUrl: String = "",
     var description: String = "",
+    var nickName: String = "",
 )

@@ -20,6 +20,7 @@ class RecordAdapter(val data: ArrayList<Record>) :
         var typeImage: ImageView = view.findViewById(R.id.typeImage)
         var typeText: TextView = view.findViewById(R.id.typeText)
         var amount: TextView = view.findViewById(R.id.record_amount)
+        var nickName: TextView = view.findViewById(R.id.create_by_nickName)
         var moneyLabel: TextView = view.findViewById(R.id.money_label)
     }
 
@@ -59,6 +60,8 @@ class RecordAdapter(val data: ArrayList<Record>) :
             holder.moneyLabel.setTextColor(Color.RED)
         }
         holder.amount.text = String.format("%.2f", record.amount)
+        holder.nickName.text = record.nickName
+
     }
 
     override fun getItemCount(): Int {

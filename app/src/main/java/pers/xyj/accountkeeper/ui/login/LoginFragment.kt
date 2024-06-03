@@ -36,7 +36,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginFragmentViewModel>
         savedInstanceState: Bundle?
     ) {
         viewModel!!.apply {
-//            publicViewModel?.spUtil!!.removeItem("accessToken")
+            publicViewModel?.spUtil!!.removeItem("accessToken")
             var token = publicViewModel?.spUtil!!.getItem("accessToken", "") as String
             if (token != "") {
                 findNavController().navigate(
@@ -134,19 +134,28 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginFragmentViewModel>
                             is ApiResponse.Error -> LogUtil.e("${it.errMsg} ${it.errMsg}")
                             ApiResponse.Loading -> LogUtil.e("Loading")
                             is ApiResponse.Success -> {
-                                var loginInfo: LoginUserInfo = (it.data?.data) as LoginUserInfo
-                                spUtil.setItem("accessToken", loginInfo.accessToken)
-                                spUtil.setItem("refreshToken", loginInfo.refreshToken)
-                                spUtil.setItem("userInfo", loginInfo.userInfoVo)
-                                withContext(Dispatchers.Main) {
-                                    findNavController().navigate(
-                                        R.id.mainNavigationFragment,
-                                        null,
-                                        NavOptions.Builder().setPopUpTo(R.id.loginFragment, true)
-                                            .build()
-                                    )
+                                if (it.data?.code != "200"){
+                                    Looper.prepare()
+                                    Toast.makeText(
+                                        requireContext(),
+                                        it.data?.msg,
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    Looper.loop()
+                                }else{
+                                    var loginInfo: LoginUserInfo = (it.data?.data) as LoginUserInfo
+                                    spUtil.setItem("accessToken", loginInfo.accessToken)
+                                    spUtil.setItem("refreshToken", loginInfo.refreshToken)
+                                    spUtil.setItem("userInfo", loginInfo.userInfoVo)
+                                    withContext(Dispatchers.Main) {
+                                        findNavController().navigate(
+                                            R.id.mainNavigationFragment,
+                                            null,
+                                            NavOptions.Builder().setPopUpTo(R.id.loginFragment, true)
+                                                .build()
+                                        )
+                                    }
                                 }
-
                             }
                         }
                     }
